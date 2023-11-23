@@ -5,7 +5,9 @@ import {
   PrimaryGeneratedColumn, 
   CreateDateColumn, 
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
+import { Conversation } from "./conversation.entity";
 
 @Entity({ name: "users"})
 @Unique(['email'])
@@ -40,4 +42,7 @@ export class User {
     default: () => 'CURRENT_TIMESTAMP',
   })
   public updated_at: Date;
+
+  @OneToMany(() => Conversation, (conversation) => conversation.user)
+  conversations: Conversation[]
 }
