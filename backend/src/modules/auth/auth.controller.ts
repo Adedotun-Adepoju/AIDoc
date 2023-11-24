@@ -21,7 +21,7 @@ export class AuthController {
   async signUp(@Body() createAccountDto: createAccountDto): Promise<ResponseDto> {
     try {
       const user = await this.authService.signUp(createAccountDto)
-      return ResponseHelper.successResponse('User created successfully', user);
+      return ResponseHelper.successResponse('User created successfully', 201, user);
     } catch(error){
       console.log(error)
       throw new HttpException(error.message, error.status);
