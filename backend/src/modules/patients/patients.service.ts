@@ -21,15 +21,29 @@ export class PatientsService {
     return patient
   }
 
-  async fetchPatientById(id: string): Promise<Patient> {
+  async fetchPatientById(id: string) {
     const patient = await this.patientRepo.findOneBy({ id })
 
-    return patient
+    if(!patient){
+      throw new Error("Patient with the specified id does not exist")
+    }
+
+    return {
+      status: "success",
+      message: "Patient Fetched successfully",
+      data: patient
+    }
   }
 
-  async updatePatient(id:string, payload: Partial<Patient>): Promise<Patient> {
+  async updatePatient(id:string, payload: Partial<Patient>) {
     await this.patientRepo.update({ id: id }, payload);
-    
-    return await this.patientRepo.findOneBy({ id })
+
+    const data= await this.patientRepo.findOneBy({ id })
+
+    return {
+      status: "success",
+      message: "Patient updated successfully",
+      data
+    }
   }
 }
