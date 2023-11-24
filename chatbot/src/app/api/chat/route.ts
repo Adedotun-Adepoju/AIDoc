@@ -1,10 +1,10 @@
-import { ReplicateStream, StreamingTextResponse } from 'ai';
+
 // import axios from 'axios';
 
 // const axiosInstance = axios.create();
 
  
-const apiKey = "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"
+const apiKey = "process.env.OPEN_AI_KEY"
 
 const apiUrl = "https://api.openai.com/v1/chat/completions"
 
