@@ -44,7 +44,7 @@ export class ChatController {
   }
 
   @Get("/prompts/:conversation_id")
-  async getPromptsByConversation(@Param('converstion_id') conversationId: string) {
+  async getPromptsByConversation(@Param('conversation_id') conversationId: string) {
     try {
       const conversations = await this.chatService.fetchPromptsByConversation(conversationId);
       return ResponseHelper.successResponse("Prompts fetched succesfully", 200, conversations)
