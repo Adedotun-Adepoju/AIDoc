@@ -4,6 +4,7 @@ import { Conversation } from 'src/entities/conversation.entity';
 import { Prompt } from 'src/entities/prompt.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
+import { title } from 'process';
 
 @Injectable()
 export class ChatService {
@@ -30,6 +31,12 @@ export class ChatService {
     })
 
     await this.conversationRepo.save(conversation)
+
+    await this.createPrompt({
+      conversation_id: conversation.id,
+      role: "user",
+      content: payload.title
+    })
 
     const newConversation = await this.conversationRepo.findOneBy({ id: conversation.id})
     return newConversation
