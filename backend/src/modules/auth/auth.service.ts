@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   async validateUser(email: string, pass:string): Promise<Partial<User>> {
-    const user = await this.usersService.findUser(email)
+    const user = await this.usersService.findUserByEmail(email)
 
     if(!user) {
       return null 
@@ -84,7 +84,7 @@ export class AuthService {
       }
     }
 
-    const user = await this.usersService.findUser(verification.email)
+    const user = await this.usersService.findUserByEmail(verification.email)
 
     verification.status = VerificationStatus.VERIFIED
     await this.emailVerificationRepo.save(verification)

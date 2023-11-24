@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
+import { PatientsService } from '../patients/patients.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -8,9 +9,16 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepo: Repository<User>,
+    private patientService: PatientsService
   ){}
 
-  async findUser(email: string) {
+  async findUserById(id: string): Promise<User> {
+    const user = await this.userRepo.findOneBy({ id })
+
+    return user
+  }
+
+  async findUserByEmail(email: string) {
     const user = await this.userRepo.findOne({
       where: {
         email: email
@@ -29,6 +37,9 @@ export class UsersService {
     })
 
     await this.userRepo.save(user)
+
+    // Create patient record
+    await this.patientService.createPatient({ user })
 
     return {
       id: user.id,
