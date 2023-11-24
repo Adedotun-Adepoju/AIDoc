@@ -4,7 +4,6 @@ import { Conversation } from 'src/entities/conversation.entity';
 import { Prompt } from 'src/entities/prompt.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
-import { title } from 'process';
 
 @Injectable()
 export class ChatService {
