@@ -19,10 +19,9 @@ export class UsersService {
   }
 
   async findUserByEmail(email: string) {
-    const user = await this.userRepo.findOne({
-      where: {
-        email: email
-      }
+    const user = await this.userRepo.findOne({ 
+      where: { email: email },
+      relations: ['patient', 'emailVerification']
     })
 
     return user
