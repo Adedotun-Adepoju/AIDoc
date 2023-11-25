@@ -1,6 +1,7 @@
-import { Controller, HttpException, Param, Get, Patch, Body } from '@nestjs/common';
+import { Controller, HttpException, Param, Get, Patch, Body, UseGuards } from '@nestjs/common';
 import { PatientsService } from './patients.service';
 import { ResponseHelper } from 'src/helper/response.helper';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('patients')
 export class PatientsController {
@@ -8,6 +9,7 @@ export class PatientsController {
     private patientsService: PatientsService
   ){}
   
+  @UseGuards(JwtAuthGuard)
   @Get("/:id")
   async fetchPatientById(@Param('id') id: string): Promise<object> {
     try {
@@ -19,6 +21,7 @@ export class PatientsController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch("/:id")
   async updatePatientRecord(@Param('id') id:string, @Body() payload:any): Promise<object> {
     try {

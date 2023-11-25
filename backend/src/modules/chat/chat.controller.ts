@@ -1,15 +1,17 @@
-import { Body, Controller, Param, Post, Get } from '@nestjs/common';
+import { Body, Controller, Param, Post, Get, UseGuards } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { createConversationDto } from './dto/create-conversation.dto';
 import { createPromptDto } from './dto/create-prompt.dto';
 import { ResponseHelper } from 'src/helper/response.helper';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('chat')
 export class ChatController {
   constructor(
     private chatService: ChatService
   ){}
-  
+
+  @UseGuards(JwtAuthGuard)
   @Post("/conversation")
   async createConversation(@Body() payload: createConversationDto) {
     try {
@@ -21,6 +23,7 @@ export class ChatController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post("/prompt")
   async createPrompt(@Body() payload: createPromptDto) {
     try {
@@ -32,6 +35,7 @@ export class ChatController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get("/conversations/:user_id")
   async getConversationsByUser(@Param('user_id') userId: string) {
     try {
@@ -43,6 +47,7 @@ export class ChatController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get("/prompts/:conversation_id")
   async getPromptsByConversation(@Param('conversation_id') conversationId: string) {
     try {

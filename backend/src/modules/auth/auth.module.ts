@@ -3,7 +3,6 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { MailerModule } from '../mailer/mailer.module';
@@ -17,8 +16,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     MailerModule,
     JwtModule.register({
       global: true,
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '2 days' },
+      secret: process.env.JWT_SECRET_KEY,
+      signOptions: { expiresIn: '3 days' },
     }),
   ],
   controllers: [AuthController],
