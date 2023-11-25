@@ -4,6 +4,7 @@ import { AiDocLogo, BloodIcon, BotIcon, ChevronUpIcon, DnaIcon, LogoutIcon, Spec
 import Image from 'next/image'
 import How from '@/components/How'
 import Features from '@/components/features'
+import Why from '@/components/Why'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <SubHeader />
       <How />
       <Features />
+      <Why />
     </main>
   )
 }
