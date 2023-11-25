@@ -19,10 +19,16 @@ const config: Config = {
         white: "#FFFFFF",
         orange: "#f2994a",
         black: "#000000",
-        gray: "#333333"
+        grayLight: "#E0E0E0",
+        grayDark: "#333333",
+        red: "#DE0C18"
       },
       fontFamily: {
         quicksand: ['var(--font-quicksand)'],
+      },
+      screens: {
+        'xs': '425px',
+        // => @media (min-width: 992px) { ... }
       },
     },
   },
