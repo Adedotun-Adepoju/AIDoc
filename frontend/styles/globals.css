@@ -2,3 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.gradient_border {
+  background: linear-gradient(to bottom, #f2994a, #1CA1FE);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.super_script {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+.medical_pratictioner_bg {
+  background: url('/public/images/medical-pratictioner.png');
+  background-repeat: no-repeat;
+}
