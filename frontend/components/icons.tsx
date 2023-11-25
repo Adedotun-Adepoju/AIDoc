@@ -176,6 +176,7 @@ export const ProfileIcon = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     width={14}
     height={19}
+    viewBox="0 0 14 19"
     {...props}
     fill="none"
   >
@@ -223,10 +224,10 @@ export const BotIcon = (props: SVGProps<SVGSVGElement>) => (
 export const SunIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
+    width="29px"
+    height="29px"
     fill="none"
-    viewBox="0 0 29 40"
+    viewBox="0 0 29 29"
     className={cx(props.className, 'w-full h-auto')}
     {...props}
   >
@@ -247,5 +248,30 @@ export const SunIcon = (props: SVGProps<SVGSVGElement>) => (
         <stop offset={1} stopColor="#FFF50A" stopOpacity={0.22} />
       </linearGradient>
     </defs>
+  </svg>
+)
+
+export const AboutIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={48}
+    height={48}
+    viewBox="0 0 24 24"
+    className={cx(props.className, 'w-full h-auto')}
+    {...props}
+    fill="none"
+  >
+    <path fill={props.fill ? props.fill : "#1CA1FE"} d="M12 2C6.489 2 2 6.489 2 12s4.489 10 10 10 10-4.489 10-10S17.511 2 12 2zm0 2c4.43 0 8 3.57 8 8s-3.57 8-8 8-8-3.57-8-8 3.57-8 8-8zm-1 3v2h2V7h-2zm0 4v6h2v-6h-2z" />
+  </svg>
+)
+
+export const ContactIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 176.03 184.05"
+    className={cx(props.className, 'w-full h-auto')}
+    {...props}
+  >
+    <path fill={props.fill ? props.fill : "#1CA1FE"} d="M101.67 134.08c-20.4 17.14-44.9 10.08-55.95-6.3-7-10.45-7.27-21.89-5-33.63C44.77 73 56.36 56.88 74.84 46c16.4-9.66 33.78-7.71 48.37 5 .41-.64.81-1.22 1.16-1.83 2.74-4.79 6.47-6.36 10.67-4.48s5.76 6.13 3.74 11.39c-2.08 5.44-4.34 10.81-6.5 16.21-4.28 10.71-8.91 21.22-12.59 32.08-2.1 6.21-2.75 12.94-3.8 19.47-.59 3.67 1.63 5.07 4.82 3.9 4.8-1.76 9.83-3.41 14.06-6.18 34-22.3 33.36-71.27-1-93.73C90.08-.75 29 25 17.79 76.66c-10.13 46.7 25.15 90.76 72.94 91.43 26.43.38 49.16-7.25 66.31-28.38 3.54-4.37 8.18-4.8 11.84-1.77 3.81 3.15 3.89 7.87.12 12.34-22 26-50.83 35.62-83.89 33.48-41.37-2.67-75.48-33.3-83.47-73.93-9.56-48.69 23.63-98.21 72.6-107.7 31.12-6 59.38.34 81.71 23.7 33 34.56 24.89 91.5-21.36 114.35a42.14 42.14 0 0 1-9.46 3c-9.62 2.22-17.89.46-23.46-9.1Zm-46-33.27C55 119.24 64.92 129.19 78.51 128c7.89-.71 13.61-5.25 16.89-11.78 6.31-12.56 11.84-25.53 17.39-38.47 4.43-10.32-.25-18.49-11.34-21A22.55 22.55 0 0 0 86 58.58c-19.16 9.52-28.84 25.26-30.3 42.23Z" />
   </svg>
 )
