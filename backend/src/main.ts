@@ -12,7 +12,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true}));
   await app.listen(port, () => {
-    console.log('[BASE URL]', config.get<string>('BASE_URL'));
+    console.log('App now running');
   });
 
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
