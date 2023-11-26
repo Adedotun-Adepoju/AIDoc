@@ -2,3 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+.gradient_border {
+  background: linear-gradient(to bottom, #f2994a, #1CA1FE);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.super_script {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+.medical_pratictioner_bg {
+  background: url('/public/images/medical-pratictioner.png');
+  background-repeat: no-repeat;
+}
+
+.border_b_except_last_child > *:not(:last-child) {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.heightd {
+  height: 100svh;
+}
+
+
+.translate_x_full {
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@media (max-width: 787px) {
+  .grouped_classes {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    color: #61a5d51a;
+  }
+}
+
+@media (min-width: 768px) {
+  .translate_x_full {
+    --tw-translate-x: 0;
+    /* Set the initial translate value for screens 768px and above */
+  }
+}
+
+

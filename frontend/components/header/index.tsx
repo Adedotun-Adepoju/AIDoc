@@ -1,34 +1,19 @@
-"use client"
-import React, { useEffect, useState } from 'react'
 import { AiDocLogo } from '../icons'
 import Link from 'next/link'
 import { cx } from '@/utils'
+import MenuBtn from './MenuBtn'
 
 const Header = () => {
-  const [isSticky, setSticky] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setSticky(window.scrollY > 0);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
   return (
-    <header className={cx(isSticky ? 'sticky top-0 py-4' : 'py-10','flex justify-between px-10 py-10 items-center bg-slate-200/80 backdrop-blur-sm')}>
+    <header className={cx('sticky top-0 py-4 flex justify-between md:px-10 px-5 z-30 items-center bg-white/80 backdrop-blur-sm max-w-7xl mx-auto')}>
       <AiDocLogo className='h-16'/>
 
-      <nav className='flex gap-6 absolute right-1/2 translate-x-1/2 text-blueDark-200 font-semibold'>
+      <nav className='absolute hidden gap-6 font-semibold translate-x-1/2 md:flex right-1/2 text-blueDark-200'>
         <Link href='/about'>About us</Link>
         <Link href='/contact'>Contact us</Link>
       </nav>
-
       <div>
-        Christian
+        <MenuBtn />
       </div>
     </header>
   )
