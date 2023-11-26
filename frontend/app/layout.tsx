@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cx(quicksand.variable, "font-quicksand")}
+        className={cx(quicksand.variable, "font-quicksand min-h-screen")}
       >
         {children}
       </body>
