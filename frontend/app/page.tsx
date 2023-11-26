@@ -5,6 +5,7 @@ import Image from 'next/image'
 import How from '@/components/How'
 import Features from '@/components/features'
 import Why from '@/components/Why'
+import GettingStarted from '@/components/Getting-started'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <How />
       <Features />
       <Why />
+      <GettingStarted />
     </main>
   )
 }
