@@ -6,6 +6,7 @@ import How from '@/components/How'
 import Features from '@/components/features'
 import Why from '@/components/Why'
 import GettingStarted from '@/components/Getting-started'
+import Footer from '@/components/footer'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Features />
       <Why />
       <GettingStarted />
+      <Footer />
     </main>
   )
 }
