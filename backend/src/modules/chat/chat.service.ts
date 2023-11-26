@@ -51,6 +51,9 @@ export class ChatService {
     const conversations = await this.conversationRepo.find({
       where: {
         user_id: userId
+      },
+      order: {
+        created_at: 'DESC'
       }
     })
 
