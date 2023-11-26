@@ -6,6 +6,9 @@ import stressMgt from '/public/images/stress-mgt.png'
 import handHygiene from '/public/images/hand-hygiene.png'
 import { compareDesc, parseISO, format } from "date-fns";
 import axios from 'axios'
+import { ChatMessage } from '@/app/(authenticated)/(chatbox)/chatbox/page'
+import { type } from 'os'
+import { ConversationHistoryType } from '@/components/chatbox/ChatHistory'
 
 export const cx = (...classNames: (string | undefined)[]) => {
   return classNames.filter(Boolean).join(' ');
@@ -111,23 +114,54 @@ export const savePrompt = async ({ token, body }: savePromptType): Promise<any> 
   }
 };
 
+const openAiUrl = "https://api.openai.com/v1/chat/completions"
+const openAiApiKey = "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"
 
-// export const savePromptt = async ({token, body }:savePromptType) => {
-//   axios.request({
-//     method: 'post',
-//     maxBodyLength: Infinity,
-//     url: '/api/chat/prompt',
-//     headers: { 
-//       'Authorization': token,\
-//       'Content-Type': 'application/json'
-//     },
-//     data : JSON.stringify(body),
-//   })
-//   .then((response) => {
-//     console.log(JSON.stringify(response.data));
-//     return response.data;
-//   })
-//   .catch((error) => {
-//     console.log(error);
+
+export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
+  let data = JSON.stringify({
+    "model": "gpt-3.5-turbo",
+    "messages": messages,
+    "temperature": 0.5,
+    "max_tokens": 256
+  });
+  
+  try {
+    const axiosResponse = await axios.post(openAiUrl, data, {
+      headers: { 
+        Authorization: `Bearer ${openAiApiKey}`, 
+        'Content-Type': 'application/json'
+      },
+    });
+    return axiosResponse.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export type getConversationsType = {
+  user_id: string;
+  token: string;
+};
+
+export const getConversations = async ({user_id, token}: getConversationsType): Promise<any> => {
+  try {
+    const axiosResponse = await axios.get(`/api/chat/conversations/${user_id}`, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(axiosResponse);
+    return axiosResponse.data;
+  } catch (error) {
+    console.error(error);
+    throw error; // Re-throw the error to propagate it to the caller
+  }
+};
+
+// export const sortConvos = (conversations: ConversationHistoryType[]) => {
+//   return conversations.slice().sort((a: any, b:any) => {
+//     return compareDesc(parseISO(b.created_at), parseISO(a.created_at));
 //   });
-// };
+// }
