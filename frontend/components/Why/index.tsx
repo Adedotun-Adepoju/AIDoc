@@ -36,6 +36,23 @@ const Styledwhy = styled.section`
         font-size: 16px;
         font-weight: 600;
     }
+    @media (max-width: 768px) {
+        h1 {
+            text-align: center;
+            font-size: 25px;
+        }
+        .why-divs {
+            display: flex;
+            flex-direction: column;
+        }
+        .why {
+            width: 90vw;
+            gap: 8px;
+        }
+        p {
+            font-size: 14px;
+        }
+    }
 `
 const Why = () => {
     const why = [

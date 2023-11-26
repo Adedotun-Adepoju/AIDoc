@@ -45,6 +45,38 @@ const StyledFeatures = styled.section`
     font-weight: 700;
     color: var(--Blue-1, #08426B);
  }
+ @media (max-width: 768px) {
+    margin-top: 50px;
+    padding-left: 20px;
+    .features {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+    .key {
+        gap: 5px;
+        p {
+        font-size: 25px;
+    }
+    svg {
+        width: 22px;
+        height: 10px;
+    }
+    }
+    .content-div {
+
+    }
+    h6 {
+        font-size: 25px;
+    }
+    .each {
+        width: 90vw;
+        p {
+            width: 85vw;
+            font-size: 14px;
+        }
+    }
+ }
 `
 const Features = () => {
     const features = [

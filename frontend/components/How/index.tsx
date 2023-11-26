@@ -45,6 +45,21 @@ const StyledHow = styled.section`
         width: 238px;
         line-height: 15.4px;
     }
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+        .each-div {
+            width: 85vw;
+        }
+        p {
+            width: 75vw;
+        }
+    }
 `
 
 const How = () => {

@@ -40,6 +40,28 @@ const StyledSubHeader = styled.section`
         font-size: 12px;
         font-weight: 700;
     }
+    @media (max-width: 768px) {
+        .subhead {
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 25px;
+        }
+        p {
+            font-size: 13px;
+            width: 90vw;
+        }
+        h2 {
+            font-size: 31px;
+            width: 90vw;
+        }
+        .img-bot {
+            width: 276px;
+            height: 274px;
+            margin-top: 48px;
+        }
+    }
 `
 const SubHeader = () => {
     return ( <StyledSubHeader>
@@ -55,7 +77,7 @@ const SubHeader = () => {
                 <button>GET STARTED</button>
             </div>
             <div className="img-div">
-                <Image src={AI} alt="ai banner" width={391} height={387} />
+                <Image src={AI} alt="ai banner" width={391} height={387} className="img-bot"/>
             </div>
         </section>
         </StyledSubHeader>

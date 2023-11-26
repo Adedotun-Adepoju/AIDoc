@@ -33,8 +33,7 @@ const StyledFooter = styled.footer`
     margin-bottom: -15px;
  }
  .details {
-    display: flex;
- 
+    display: flex; 
     flex-direction: column;
     gap: 30px;
  }
@@ -90,6 +89,32 @@ const StyledFooter = styled.footer`
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+ }
+ @media (max-width: 768px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        padding-left: 17px;
+        gap: 8px;
+    }
+    input, textarea {
+        width: 90vw;
+    }
+    .key {
+        p {
+            font-size: 20px;
+        }
+        svg {
+            width: 22px;
+            height: 10px;
+        }
+    }
+    .long-text {
+        width: 90vw;
+    }
+    .copyright {
+        font-size: 11px;
+    }
  }
 `
 const Footer = () => {

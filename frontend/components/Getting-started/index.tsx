@@ -37,6 +37,24 @@ const StyledStarted = styled.section`
         font-size: 12px;
         font-weight: 700;
     }
+    @media (max-width: 768px) {
+        .started {
+            display: flex;
+            flex-direction: column;
+            padding-left: 15px;
+        }
+        h1 {
+            font-size: 25px;
+            width: 90vw;
+        }
+        p {
+            width: 85vw;
+            font-size: 14px;
+        }
+        .ai-banner {
+            width: 90vw;
+        }
+    }
 `
 const GettingStarted = () => {
     return ( <StyledStarted>
@@ -51,7 +69,7 @@ const GettingStarted = () => {
                 </Link>
             </div>
             <div className="img-div">
-                <Image src={AiBot} alt="ai banner" width={391} height={387} />
+                <Image src={AiBot} alt="ai banner" className="ai-banner" width={391} height={387} />
             </div>
         </section>
         </StyledStarted>
