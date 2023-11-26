@@ -17,7 +17,7 @@ const MenuBtn = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const logOut = () => {
-    console.log("logOut");
+    return;
   };
 
   return (
