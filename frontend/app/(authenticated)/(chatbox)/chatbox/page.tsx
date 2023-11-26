@@ -7,6 +7,7 @@ import UserMessage from "@/components/chatbox/UserMessage";
 import { SendIcon } from "@/components/icons";
 import React, { useState } from "react";
 import { saveConvo, savePrompt } from "@/utils";
+import { Twirl as Hamburger } from 'hamburger-react'
 
 interface ChatMessage {
   role: string;
@@ -34,6 +35,7 @@ const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2N
 
 const ChatBoxPage = () => {
   const [userInput, setUserInput] = useState("");
+  const [toggled, setToggled] = useState(false);
   const [conversation, setConversation] = useState<ConversationState>(initialConvoState);
   const [user, setUser] = useState({ name: "Christian", id: '1be88464-291b-4f39-bbf2-278346fb37a8' });
 
@@ -102,14 +104,25 @@ const ChatBoxPage = () => {
       handleSendMessage();
     }
   };
+
+  const handleToggle = () => {
+    setToggled(!toggled);
+    const container = document.getElementById('chatHistoryContainer');
+    container?.classList.remove('hidden');
+    container?.classList.toggle('translate_x_full');
+  }
+
   return (
     <main className="min-h-screen flex bg-slate-200">
-      <section className="flex-1 grid grid-cols-4 gap-2">
-        <div className="col-span-1 bg-blueDark-200 h-screen overflow-y-auto">
+      <section className="flex gap-2 w-full relative !overflow-x-hidden">
+        <span className="fixed top-2 text-white right-4 z-30 md:hidden">
+          <Hamburger toggled={toggled} toggle={handleToggle} size={28} />
+        </span>
+        <div id='chatHistoryContainer' className="w-10/12 xs:w-1/3 xl:1/4  bg-blueDark-200 h-screen overflow-y-auto max-w-[350px] transform transition-transform duration-300 ease-in-out  md:static absolute top-0 right-full sm:w-full sm:h-full sm:z-50">
           <ChatHistory />
         </div>
 
-        <div className="col-span-2 bg-slate-100 h-screen flex flex-col">
+        <div className="flex-1  bg-slate-100 h-screen flex flex-col">
           <h2 className="bg-blueDark-200 text-white text-xl font-semibold sm:px-10 py-4 px-5">
             Chat with AI-DOC
           </h2>
@@ -120,7 +133,7 @@ const ChatBoxPage = () => {
               content={`Hello ${user.name}, what symptoms are you having today?`}
             />
             {conversation.chatMessages.map((message, index) => {
-              return message.role === "ai" ? (
+              return message.role === "assistant" ? (
                 <AiDocMessage key={index} content={message.content} />
               ) : (
                 <UserMessage key={index} content={message.content} />
@@ -147,7 +160,7 @@ const ChatBoxPage = () => {
           </div>
         </div>
 
-        <div className="col-span-1 bg-white h-screen overflow-y-auto">
+        <div className="w-1/4 bg-white h-screen overflow-y-auto xl:block hidden">
           <SideBar />
         </div>
       </section>
