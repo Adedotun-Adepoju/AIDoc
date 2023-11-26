@@ -5,6 +5,8 @@ import Image from "next/image"
 import VectorBot from '../../public/img/vector-bot.png'
 import styled from "styled-components"
 import Icons from "@/components/shared/icons"
+import { useState, useRef } from "react"
+import axios from "axios"
 
 export const StyledLogin = styled.section`
     background-color: #fff;
@@ -125,6 +127,25 @@ export const StyledLogin = styled.section`
     }
 `
 const Login = () => {
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const showPass = () => {
+        if (passwordRef.current?.type === "password") {
+            passwordRef.current.type = "text";
+          } else if (passwordRef.current?.type === "text") {
+            passwordRef.current.type = "password"
+          }
+    }
+    const Login = (email: string, password: string) => {
+        axios.post('/api/auth/login', {email, password})
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) =>{
+            console.log(error)
+        })
+    }
     return ( <StyledLogin>
         <section className="flex-row login">
             <div className="content-div">
@@ -135,17 +156,17 @@ const Login = () => {
                 <p>Welcome back, Please enter your Email and Password to login</p>
                 <div className="name-div flex-row">
                     <Icons type="profile" />
-                    <Input type="text" placeholder="Full Name" />
+                    <Input type="email" placeholder="Email" onChange={(event) => (setName(event.target.value))} value={name}/>
                 </div>
                 <div className="password-div flex-row">
                     <Icons type="lock" />
-                    <Input type="password" placeholder="Password" />
-                    <Icons type="eyes" />
+                    <Input type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} value={password} refEl={passwordRef}/>
+                    <span onClick={() => showPass()}><Icons type="eyes" /> </span>
                 </div>
                 <Link href='/'>
                     <p className="forgot">Forgot Password</p>
                 </Link>
-                <button>Login</button>
+                <button onClick={(e) => (e.preventDefault(), Login(name, password))}>Login</button>
                 <Link href='/signup'>
                      <p className="no-account">
                         Don’t have an account? <b>SIGN UP</b>
