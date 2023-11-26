@@ -4,11 +4,9 @@ import exercise from '/public/images/exercise.png'
 import sleep from '/public/images/sleep.png'
 import stressMgt from '/public/images/stress-mgt.png'
 import handHygiene from '/public/images/hand-hygiene.png'
-import { compareDesc, parseISO, format } from "date-fns";
+import { parseISO, format } from "date-fns";
 import axios from 'axios'
 import { ChatMessage } from '@/app/(authenticated)/(chatbox)/chatbox/page'
-import { type } from 'os'
-import { ConversationHistoryType } from '@/components/chatbox/ChatHistory'
 
 export const cx = (...classNames: (string | undefined)[]) => {
   return classNames.filter(Boolean).join(' ');
@@ -51,18 +49,6 @@ export const healthTips = [
   }
 ]
 
-// let config = {
-//   method: 'post',
-//   maxBodyLength: Infinity,
-//   url: '/api/chat/conversation',
-//   headers: { 
-//     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2NC0yOTFiLTRmMzktYmJmMi0yNzgzNDZmYjM3YTgiLCJ1c2VybmFtZSI6ImQuZS5hZGVwb2p1QGdtYWlsLmNvbSIsImlhdCI6MTcwMDkzMDIyMywiZXhwIjoxNzAxMTg5NDIzfQ.nrJsCxnzZ95x_9xpn0ILMWxG9S03yDQFHjSfEuyW2eM', 
-//     'Content-Type': 'application/json'
-//   },
-//   data : JSON.stringify({title: userInput, user_id: "1be88464-291b-4f39-bbf2-278346fb37a8"})
-// };
-
-
 type SaveConvoType = {
   token: string;
   body: {
@@ -80,7 +66,6 @@ export const saveConvo = async ({ token, body }: SaveConvoType): Promise<any> =>
       },
     });
 
-    // console.log(JSON.stringify(axiosResponse.data));
     return axiosResponse.data;
   } catch (error) {
     console.error(error);
@@ -106,7 +91,6 @@ export const savePrompt = async ({ token, body }: savePromptType): Promise<any> 
       },
     });
 
-    // console.log(JSON.stringify(axiosResponse.data));
     return axiosResponse.data;
   } catch (error) {
     console.error(error);
@@ -159,9 +143,3 @@ export const getConversations = async ({user_id, token}: getConversationsType): 
     throw error; // Re-throw the error to propagate it to the caller
   }
 };
-
-// export const sortConvos = (conversations: ConversationHistoryType[]) => {
-//   return conversations.slice().sort((a: any, b:any) => {
-//     return compareDesc(parseISO(b.created_at), parseISO(a.created_at));
-//   });
-// }
