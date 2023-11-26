@@ -1,3 +1,4 @@
+import BackBtn from "@/components/elements/BackBtn";
 import ChatWithDocBotBtn from "@/components/elements/ChatWithDocBotBtn";
 import ConnectDocBtn from "@/components/elements/ConnectDocBtn";
 import { BackIcon, BloodIcon, DnaIcon, WeightIcon } from "@/components/icons";
@@ -8,14 +9,8 @@ import React from "react";
 
 const page = () => {
   return (
-    <main className="px-5 py-16 mx-auto max-w-7xl md:px-10">
-      <Link
-        href="/"
-        className="flex items-center gap-2 text-base font-semibold text-blueDark-200"
-      >
-        <BackIcon className="w-5 h-5" />
-        Back
-      </Link>
+    <main className="px-5 py-16 mx-auto max-w-7xl md:px-10 relative">
+      <BackBtn />
       <section className="grid max-w-5xl gap-8 grid-cols-12 mx-auto mt-8">
         <h2 className="col-span-12 mb-12 text-2xl font-semibold capitalize">
           Common Health tips
