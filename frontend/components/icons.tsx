@@ -421,3 +421,74 @@ export const AiLogoWhiteIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+
+export const TypingLoadingIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" {...props}>
+    <circle cx={15} cy={15} r={10} fill="#3498db">
+      <animate
+        attributeName="r"
+        begin="0s"
+        dur="0.8s"
+        from={10}
+        keyTimes="0;0.5;1"
+        repeatCount="indefinite"
+        to={10}
+        values="10;0;10"
+      />
+      <animate
+        attributeName="fill-opacity"
+        begin="0s"
+        dur="0.8s"
+        from={1}
+        keyTimes="0;0.5;1"
+        repeatCount="indefinite"
+        to={1}
+        values="1;0;1"
+      />
+    </circle>
+    <circle cx={60} cy={15} r={10} fill="#e74c3c">
+      <animate
+        attributeName="r"
+        begin="0s"
+        dur="0.8s"
+        from={10}
+        keyTimes="0;0.5;1"
+        repeatCount="indefinite"
+        to={10}
+        values="10;0;10"
+      />
+      <animate
+        attributeName="fill-opacity"
+        begin="0s"
+        dur="0.8s"
+        from={1}
+        keyTimes="0;0.5;1"
+        repeatCount="indefinite"
+        to={1}
+        values="1;0;1"
+      />
+    </circle>
+    <circle cx={105} cy={15} r={10} fill="#2ecc71">
+      <animate
+        attributeName="r"
+        begin="0s"
+        dur="0.8s"
+        from={10}
+        keyTimes="0;0.5;1"
+        repeatCount="indefinite"
+        to={10}
+        values="10;0;10"
+      />
+      <animate
+        attributeName="fill-opacity"
+        begin="0s"
+        dur="0.8s"
+        from={1}
+        keyTimes="0;0.5;1"
+        repeatCount="indefinite"
+        to={1}
+        values="1;0;1"
+      />
+    </circle>
+  </svg>
+)
