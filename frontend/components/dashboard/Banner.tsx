@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import doctor from '/public/images/medical-practitioner.png'
+import Button from '../elements/Button'
 
 const Banner = () => {
   return (
@@ -10,9 +11,7 @@ const Banner = () => {
         <h2 className="flex gap-2 mb-2 text-2xl font-bold">Are you a Health <br className='sm:hidden'/> Practitioner?</h2>
         <p className="max-w-xl text-sm font-medium sm:text-base">Join our Health Professional <br className='sm:hidden'/> Team today!</p>
       </div>
-      <button className='px-4 py-2 text-sm font-semibold uppercase rounded-full sm:py-4 sm:px-6 bg-blueDark-200'>
-        Register now
-      </button>
+      <Button title='Register Now' />
     </div>
     </section>
   )
