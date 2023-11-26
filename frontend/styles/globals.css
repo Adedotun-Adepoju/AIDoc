@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 .gradient_border {
   background: linear-gradient(to bottom, #f2994a, #1CA1FE);
   border-radius: 10px;
@@ -16,4 +19,13 @@
 .medical_pratictioner_bg {
   background: url('/public/images/medical-pratictioner.png');
   background-repeat: no-repeat;
+}
+
+
+.border_b_except_last_child > *:not(:last-child) {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.heightd {
+  height: 100svh;
 }
