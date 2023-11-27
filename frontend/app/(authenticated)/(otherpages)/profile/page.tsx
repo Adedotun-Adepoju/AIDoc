@@ -1,5 +1,4 @@
 import {
-  BackIcon,
   BloodIcon,
   DnaIcon,
   MailIcon,

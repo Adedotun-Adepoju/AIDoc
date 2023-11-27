@@ -20,7 +20,6 @@ const SideBar = () => {
         <SpecialistIcon className="w-5 h-5 mr-2" />
         Connect Specialist
       </Link>
-      <TypingLoadingIcon className="w-5 h-5 mt-4" />
     </aside>
   )
 }
