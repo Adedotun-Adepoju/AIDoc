@@ -85,7 +85,7 @@ const How = () => {
             <h1>
                 How AI-DOC Works
             </h1>
-            <div className="flex-row container">
+            <div className="flex__row container">
                 {contents.map((item, index) => (
                 <div className="each-div" key={index}>
                     <span>{item.id}</span>

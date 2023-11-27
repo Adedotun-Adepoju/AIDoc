@@ -102,7 +102,7 @@ const Features = () => {
         },
     ]
     return ( <StyledFeatures>
-        <section className="flex-row features">
+        <section className="flex__row features">
             <div className="key">
                 <p>Key Features</p>
                 <Icons type="arrow" />

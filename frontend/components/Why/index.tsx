@@ -78,7 +78,7 @@ const Why = () => {
     return ( <Styledwhy>
         <section>
             <h1>Why Choose AI-DOC?</h1>
-            <div className=" flex-row why-divs">
+            <div className=" flex__row why-divs">
                 {why.map((item, index) => (
                 <div className="why" key={index} style={{backgroundColor: item.bgColor, backgroundImage: item.bgImage}}>
                     <h3>{item.heading}</h3>

@@ -58,7 +58,7 @@ const StyledStarted = styled.section`
 `
 const GettingStarted = () => {
     return ( <StyledStarted>
-        <section className="flex-row started">
+        <section className="flex__row started">
             <div className="content-div">
             <h1> Getting Started with AI-DOC</h1>
                 <p>

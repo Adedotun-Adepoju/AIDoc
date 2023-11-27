@@ -147,7 +147,7 @@ const Login = () => {
         })
     }
     return ( <StyledLogin>
-        <section className="flex-row login">
+        <section className="flex__row login">
             <div className="content-div">
             <Link href='/'>
                <span className="close"><Icons type="close" /> </span> 

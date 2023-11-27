@@ -65,7 +65,7 @@ const StyledSubHeader = styled.section`
 `
 const SubHeader = () => {
     return ( <StyledSubHeader>
-        <section className="flex-row subhead">
+        <section className="flex__row subhead">
             <div className="content-div">
                 <h1>Welcome to AI-DOC:</h1>
                 <h2>
