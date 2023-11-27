@@ -62,7 +62,7 @@ export class PatientsService {
       status: "success",
       message: "Patient Fetched successfully",
       data: patient
-    }
+    };
   }
 
   async updatePatient(id:string, payload: Partial<Patient>) {
