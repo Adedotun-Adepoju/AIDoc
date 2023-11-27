@@ -98,6 +98,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <Button
+              href="/profile/update"
               title="Update Data"
               classNames="bg-blueLight mt-6 text-white sm:px-2 sm:py-2 w-10/12"
             />
