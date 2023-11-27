@@ -8,6 +8,11 @@ import { parseISO, format } from "date-fns";
 import axios from 'axios'
 import { ChatMessage } from '@/app/(authenticated)/(chatbox)/chatbox/page'
 
+
+const openAiUrl = "https://api.openai.com/v1/chat/completions"
+const openAiApiKey = process.env.NEXT_PUBLIC_SANITY_DATASET
+
+
 export const cx = (...classNames: (string | undefined)[]) => {
   return classNames.filter(Boolean).join(' ');
 }
@@ -98,8 +103,7 @@ export const savePrompt = async ({ token, body }: savePromptType): Promise<any> 
   }
 };
 
-const openAiUrl = "https://api.openai.com/v1/chat/completions"
-const openAiApiKey = "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"
+
 
 
 export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
