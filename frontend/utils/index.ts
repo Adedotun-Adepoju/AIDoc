@@ -99,7 +99,7 @@ export const savePrompt = async ({ token, body }: savePromptType): Promise<any> 
 };
 
 const openAiUrl = "https://api.openai.com/v1/chat/completions"
-const openAiApiKey = "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"
+const openAiApiKey = "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"
 
 
 export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
