@@ -23,8 +23,8 @@ const ProfilePage = () => {
           My profile
         </h2>
         <div className="flex flex-col md:flex-row">
-        <div className="flex flex-col flex-1 justify-end relative">
-          <div className="flex lg:flex-row flex-col gap-8 mb-16">
+        <div className="flex flex-col flex-1 justify-end relative mb-16 md:mb-0">
+          <div className="flex lg:flex-row flex-col gap-8 mb-8 lg:mb-16">
             <Image
               src={profileImg}
               alt="profile"
@@ -54,15 +54,15 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          <div className="flex max-w-lg gap-4 font-bold text-white mr-4">
-            <ChatWithDocBotBtn classNames="md:w-7/12 lg:w-3/5"/>
-            <ConnectDocBtn classNames="md:w-5/12 lg:w-2/5" />
+          <div className="flex md:max-w-xl gap-2 md:gap-4 font-bold text-white md:mr-4 w-full">
+            <ChatWithDocBotBtn classNames="w-7/12 lg:w-3/5 xs:text-sm text-xs"/>
+            <ConnectDocBtn classNames="w-5/12 lg:w-2/5 xs:text-sm text-xs" />
           </div>
         </div>
 
         {/* STATUS  */}
-        <div className="sm:w-4/12 ">
-          <div className="grid grid-cols-1 grid-rows-3 gap-2 lg:gap-2 sm:gap-4 bg-blueDark-100 min-w-[208px] px-8 py-6 rounded-lg ">
+        <div className="md:w-4/12 w-full">
+          <div className="md:flex md:flex-col grid md:grid-cols-1 grid-cols-2 md:grid-rows-3 gap-2 lg:gap-2 sm:gap-4 bg-blueDark-100 min-w-[208px] px-8 py-6 rounded-lg ">
             <div className="col-span-1 p-4 bg-white rounded-lg">
               <p className="mb-3 font-semibold text-black">Weight (KG)</p>
               <span className="flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueLight">
@@ -86,7 +86,7 @@ const ProfilePage = () => {
                 <BloodIcon className="h-12" />
               </span>
             </div>
-            <div className="gradient_border">
+            <div className="gradient_border md:hidden">
               <div className="flex flex-col justify-around h-full col-span-1 p-4 rounded-lg bg-blueDark-100">
                 <p className="mb-3 text-base font-semibold text-white capitalize sm:text-lg">
                   Last Chat with AI-DOC
@@ -96,11 +96,14 @@ const ProfilePage = () => {
                 </span>
               </div>
             </div>
-            <div>
+            <div className="flex gap-2 justify-between mt-6 col-span-2 order-first md:order-none items-center">
+              <h3 className="text-2xl text-white font-semibold capitalize md:hidden">
+                Your current status
+              </h3>
               <Button
               href="/profile/update"
               title="Update Data"
-              classNames="bg-blueLight mt-6 text-white sm:px-2 sm:py-2 w-10/12"
+              classNames="bg-blueLight text-white sm:px-2 sm:py-2 whitespace-nowrap md:w-10/12"
             />
             </div>
           </div>
