@@ -18,9 +18,26 @@ export class Patient {
   public user_id: string 
 
   @Column({
-    type: "int"
+    type: "int",
+    nullable: true,
   })
   public contact_number: number 
+
+  @Column({
+    type: 'int',
+    nullable: true,
+  })
+  public weight: number 
+
+  @Column({
+    nullable: true,
+  })
+  public genotype: string 
+
+  @Column({
+    nullable: true
+  })
+  public blood_group: string
 
   @Column({
     type: "int"

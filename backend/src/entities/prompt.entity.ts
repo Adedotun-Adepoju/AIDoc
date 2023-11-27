@@ -7,13 +7,27 @@ export class Prompt {
   public id: string
 
   @Column('text')
-  user_input: string 
+  role: string 
 
   @Column('text')
-  model_response: string
+  content: string
 
-  @Column()
-  request_type: string
+  @Column('uuid')
+  conversation_id: string
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  public created_at: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    name: 'updated_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  public updated_at: Date;
 
   @ManyToOne(() => Conversation, (conversation) => conversation.prompts)
   @JoinColumn({ name: "conversation_id" })

@@ -1,21 +1,24 @@
 export interface ResponseDto {
-  success: boolean;
+  status: string;
   message: string;
   data?: any;
+  status_code: number
 }
 
 export class ResponseHelper {
-  static successResponse = (message: string, data?: any): ResponseDto => {
+  static successResponse = (message: string, statusCode: number, data?: any): ResponseDto => {
     return {
-      success: true,
+      status_code: statusCode,
+      status: "success",
       message,
       data,
     };
   };
 
-  static errorResponse = (message: string, data?: any): ResponseDto => {
+  static errorResponse = (message: string, statusCode: number, data?: any): ResponseDto => {
     return {
-      success: false,
+      status_code: statusCode,
+      status: "error",
       message,
       data,
     };

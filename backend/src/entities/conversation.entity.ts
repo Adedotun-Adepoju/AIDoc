@@ -7,9 +7,14 @@ export class Conversation {
   @PrimaryGeneratedColumn('uuid')
   public id: string
 
+  @Column()
+  public title: string
+
   @Column({ type: 'int' })
   cycles_number: number
 
+  @Column({ name: 'user_id' })
+  user_id: string
   
   @CreateDateColumn({
     type: 'timestamp',
@@ -28,7 +33,7 @@ export class Conversation {
   @OneToMany(() => Prompt, (prompt) => prompt.conversation)
   prompts: Prompt[]
 
-  @ManyToOne(() => User, (user) => user.conversations)
+  @ManyToOne(() => User,)
   @JoinColumn({ name: "user_id" })
   user: User
 } 

@@ -6,8 +6,11 @@ import {
   CreateDateColumn, 
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
 } from "typeorm";
 import { Conversation } from "./conversation.entity";
+import { Patient } from "./patient.entity";
+import { EmailVerification } from "./email_verification.entity";
 
 @Entity({ name: "users"})
 @Unique(['email'])
@@ -45,4 +48,10 @@ export class User {
 
   @OneToMany(() => Conversation, (conversation) => conversation.user)
   conversations: Conversation[]
+
+  @OneToOne(() => Patient, (patient) => patient.user)
+  patient: Patient
+
+  @OneToOne(() => EmailVerification, (emailVerification) => emailVerification.user)
+  emailVerification: EmailVerification
 }

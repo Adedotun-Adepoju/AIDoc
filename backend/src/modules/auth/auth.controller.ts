@@ -21,7 +21,7 @@ export class AuthController {
   async signUp(@Body() createAccountDto: createAccountDto): Promise<ResponseDto> {
     try {
       const user = await this.authService.signUp(createAccountDto)
-      return ResponseHelper.successResponse('User created successfully', user);
+      return ResponseHelper.successResponse('User created successfully', 201, user);
     } catch(error){
       console.log(error)
       throw new HttpException(error.message, error.status);
@@ -33,19 +33,20 @@ export class AuthController {
   async verifyEmail(@Param('id') id:string, @Res() res: Response): Promise<object> {
     const { status, message, data } =  await this.authService.verifyEmail(id)
     if(status == "error"){
+      console.log(message)
       throw new Error('An error occured');
     }
     return { data: data }
   }
 
   @Post('/password/request-reset')
-  async snedResetLink(@Body() passwordResetDto: requestPasswordResetDto): Promise<object> {
-    return await {};
+  async sendResetLink(@Body() passwordResetDto: requestPasswordResetDto): Promise<object> {
+    throw new Error("Method not available")
   }  
 
   @Post('/password/reset')
   async resetPassword(@Body() passwordResetDto: resetPasswordDto): Promise<object> {
-    return await {}
+    throw new Error("Method not available")
   }  
 
   @Post('login')
@@ -55,8 +56,8 @@ export class AuthController {
       const data = await this.authService.login(req.user)
       return ResponseHelper.successResponse('Login successful', data);
     }catch (error){
+      console.log(error)
       throw new HttpException(error.message, error.status);
     }
-
   }
 }
