@@ -10,7 +10,8 @@ import { ChatMessage } from '@/app/(authenticated)/(chatbox)/chatbox/page'
 
 
 const openAiUrl = "https://api.openai.com/v1/chat/completions"
-const openAiApiKey = process.env.NEXT_PUBLIC_SANITY_DATASET
+const openAiApiKey = process.env.NEXT_OPEN_AI_KEY
+
 
 
 export const cx = (...classNames: (string | undefined)[]) => {
