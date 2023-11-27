@@ -5,9 +5,11 @@ import ChatHistory from "@/components/chatbox/ChatHistory";
 import SideBar from "@/components/chatbox/SideBar";
 import UserMessage from "@/components/chatbox/UserMessage";
 import { AiDocLogo, SendIcon, TypingLoadingIcon } from "@/components/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cx, queryGPT, saveConvo, savePrompt } from "@/utils";
 import { Twirl as Hamburger } from "hamburger-react";
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
 
 export interface ChatMessage {
   role: string;
@@ -37,17 +39,34 @@ const initialConvoState = {
 };
 
 const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2NC0yOTFiLTRmMzktYmJmMi0yNzgzNDZmYjM3YTgiLCJ1c2VybmFtZSI6ImQuZS5hZGVwb2p1QGdtYWlsLmNvbSIsImlhdCI6MTcwMDkzMDIyMywiZXhwIjoxNzAxMTg5NDIzfQ.nrJsCxnzZ95x_9xpn0ILMWxG9S03yDQFHjSfEuyW2eM`;
+const TOKEN_KEY = 'trial123';
 
+const tokenn = Cookies.get(TOKEN_KEY);
+export const fetchUserData = async () => {
+  if (tokenn) {
+    const data = jwt.verify(tokenn, TOKEN_KEY) as any;
+    const { user } = data;
+    console.log(user);
+    return user;
+  }
+  return null;
+}
 const ChatBoxPage = () => {
   const [userInput, setUserInput] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [toggled, setToggled] = useState(false);
   const [conversation, setConversation] =
     useState<ConversationState>(initialConvoState);
-  const [user, setUser] = useState({
-    name: "Christian",
-    id: "1be88464-291b-4f39-bbf2-278346fb37a8",
-  });
+    const [userData, setUserData] = useState<any>(null);
+
+  useEffect(() => {
+    const token = Cookies.get(TOKEN_KEY)
+    if(token) {
+       const data = jwt.verify(token, TOKEN_KEY)
+       setUserData(data)
+    }
+  }, [])
+
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
@@ -98,7 +117,7 @@ const ChatBoxPage = () => {
       chatAiDoc();
       const response = await saveConvo({
         token,
-        body: { title: userInput, user_id: user.id },
+        body: { title: userInput, user_id: userData.id },
       });
       console.log("startConversation", response.data.id);
       setConversation((prevConversation) => (
@@ -189,7 +208,7 @@ const ChatBoxPage = () => {
           {/* Chat messages */}
           <div className="px-5 flex-1 overflow-y-auto border_b_except_last_child">
             <AiDocMessage
-              content={`Hello ${user.name}, what symptoms are you having today?`}
+              content={`Hello ${userData?.first_name}, what symptoms are you having today?`}
             />
             {conversation.chatMessages.slice(1).map((message, index) => {
               return message.role === "assistant" ? (
@@ -232,7 +251,7 @@ const ChatBoxPage = () => {
         </div>
 
         <div className="w-1/4 bg-white h-screen overflow-y-auto xl:block hidden">
-          <SideBar />
+          <SideBar user_data={userData} />
         </div>
       </section>
     </main>
