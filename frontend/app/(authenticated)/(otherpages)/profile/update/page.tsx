@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import { useForm } from "react-hook-form";
 import  AibotImg from '@/public/images/login-vector-bg.png';
+import Header from "@/components/header";
 
 const UpdateProfilePage = () => {
   const {
@@ -15,6 +16,8 @@ const UpdateProfilePage = () => {
   const onSubmit = (data: ProfileUpdateFormInputType) => console.log(data);
   console.log(errors);
   return (
+    <>
+    <Header />
     <section className="py-16 px-5 mx-auto max-w-7xl md:px-10 relative">
       <div className="flex max-w-5xl mx-auto">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full md:w-1/2 gap-4 max-w-md">
@@ -93,6 +96,7 @@ const UpdateProfilePage = () => {
     </div>
     <Image src={AibotImg} className="update__profile hidden sm:inline-block" />
     </section>
+    </>
   );
 };
 

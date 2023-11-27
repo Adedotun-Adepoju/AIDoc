@@ -9,7 +9,6 @@ import Footer from '@/components/footer'
 export default function Landing() {
   return (
     <main className="bg-white">
-      <Header />
       <SubHeader />
       <How />
        <Features />

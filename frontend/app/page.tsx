@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import { useEffect, useState } from 'react';
 import { AiDocLogo } from '@/components/icons';
+import Header from '@/components/header';
 
 export const Loading = () => {
   return (
@@ -14,7 +15,7 @@ export const Loading = () => {
   )
 }
 export default function Home() {
-  const TOKEN_KEY = 'trial123'
+  const TOKEN_KEY = 'trial123';
   const [user, setUser] = useState<boolean>()
   const [loading, setLoading] = useState<boolean>(false)
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function Home() {
   }, [])
   return (
     <>
+    <Header />
       {
         user ? (
           <Dashboard />

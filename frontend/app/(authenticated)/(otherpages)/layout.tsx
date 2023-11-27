@@ -7,7 +7,6 @@ export default function AuthenticatedLayout({
 }) {
   return (
     <>
-      <Header />
       {children}
     </>
   );
