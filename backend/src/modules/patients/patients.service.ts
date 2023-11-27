@@ -21,7 +21,10 @@ export class PatientsService {
   async createPatient(payload: Partial<Patient>): Promise<Patient> {
     const patient = this.patientRepo.create({
       user: payload.user,
-      conversation_number: 0
+      conversation_number: 0,
+      weight: payload.weight,
+      genotype: payload.genotype,
+      blood_group: payload.blood_group
     });
 
     await this.patientRepo.save(patient);
@@ -47,16 +50,18 @@ export class PatientsService {
       }
     })
 
-    const latestPrompt = await this.promptRepo.findOne({
-      where: {
-        conversation_id: latestConversation.id
-      },
-      order: {
-        created_at: "DESC"
-      }
-    })
-
-    patient["last_chat"] = latestPrompt.created_at
+    if(latestConversation){
+      const latestPrompt = await this.promptRepo.findOne({
+        where: {
+          conversation_id: latestConversation.id
+        },
+        order: {
+          created_at: "DESC"
+        }
+      })
+  
+      patient["last_chat"] = latestPrompt.created_at
+    }
 
     return {
       status: "success",

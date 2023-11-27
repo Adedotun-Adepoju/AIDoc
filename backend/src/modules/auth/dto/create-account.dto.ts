@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsNotEmpty,
   IsString,
+  IsOptional
 } from 'class-validator';
 
 export class createAccountDto {
@@ -17,4 +18,13 @@ export class createAccountDto {
 
   @IsNotEmpty()
 	password: string
+
+  @IsOptional()
+	weight: string
+
+  @IsOptional()
+	genotype: string
+
+  @IsOptional()
+	blood_group: string
 }

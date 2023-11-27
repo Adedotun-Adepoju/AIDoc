@@ -27,7 +27,7 @@ export class UsersService {
     return user
   }
 
-  async createUser(firstName:string, lastName:string, email: string, pass) {
+  async createUser(firstName:string, lastName:string, email: string, pass: string, patientData) {
     const user = this.userRepo.create({
       first_name: firstName,
       last_name: lastName,
@@ -38,7 +38,7 @@ export class UsersService {
     await this.userRepo.save(user)
 
     // Create patient record
-    await this.patientService.createPatient({ user })
+    await this.patientService.createPatient({ ...patientData, user })
 
     return {
       id: user.id,

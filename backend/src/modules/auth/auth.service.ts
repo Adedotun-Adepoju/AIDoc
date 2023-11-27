@@ -55,12 +55,18 @@ export class AuthService {
     if(existingUser){
       throw new Error("This email already exists. Please proceed to login")
     }
+    const patientInfo = {
+      "weight": payload.weight,
+      "genotype": payload.genotype,
+      "blood_group": payload.blood_group
+    }
 
     const newUser = await this.usersService.createUser(
       payload.first_name,
       payload.last_name,
       payload.email, 
-      hashedPassword
+      hashedPassword,
+      patientInfo
     )
 
     // Todo: Create email verification record
