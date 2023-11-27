@@ -11,7 +11,7 @@ import AiBotImage from '@/public/img/ai-bot.png'
 import Image from "next/image";
 import { ContactFormInputType } from "@/types"
 import { useState, useEffect } from "react";
-import { Loading } from "@/app/page";
+import { Loading } from "@/components/shared/loading";
 
 
 
@@ -88,7 +88,7 @@ const ContactPage = () => {
           />
         </form>
       </div>
-      <Image src={AiBotImage} className="fixed bottom-0 right-0 -z-10 opacity-20 hidden md:block " />
+      {/* <Image src={AiBotImage} className="fixed bottom-0 right-0 -z-10 opacity-20 hidden md:block " /> */}
     </section> : <Loading /> }
     </>
   );
