@@ -7,6 +7,9 @@ import styled from "styled-components"
 import Icons from "@/components/shared/icons"
 import { useState, useRef } from "react"
 import axios from "axios"
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
+import { useRouter } from "next/navigation"
 
 export const StyledLogin = styled.section`
     background-color: #fff;
@@ -130,6 +133,8 @@ const Login = () => {
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const passwordRef = useRef<HTMLInputElement>(null)
+    const TOKEN_KEY = 'trial123'
+    const router = useRouter()
     const showPass = () => {
         if (passwordRef.current?.type === "password") {
             passwordRef.current.type = "text";
@@ -140,7 +145,9 @@ const Login = () => {
     const Login = (email: string, password: string) => {
         axios.post('/api/auth/login', {email, password})
         .then((response) => {
-            console.log(response)
+            const token = jwt.sign({email, password}, TOKEN_KEY)
+            Cookies.set(TOKEN_KEY, token);
+            router.push('/')
         })
         .catch((error) =>{
             console.log(error)
@@ -154,11 +161,11 @@ const Login = () => {
             </Link>
                 <h1>Login to Account</h1>
                 <p>Welcome back, Please enter your Email and Password to login</p>
-                <div className="name-div flex-row">
+                <div className="name-div flex__row">
                     <Icons type="profile" />
                     <Input type="email" placeholder="Email" onChange={(event) => (setName(event.target.value))} value={name}/>
                 </div>
-                <div className="password-div flex-row">
+                <div className="password-div flex__row">
                     <Icons type="lock" />
                     <Input type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} value={password} refEl={passwordRef}/>
                     <span onClick={() => showPass()}><Icons type="eyes" /> </span>

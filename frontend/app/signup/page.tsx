@@ -46,24 +46,24 @@ const Signup = () => {
             </Link>
                 <h1>Register an Account</h1>
                 <p>We are glad to have you here! Please fill in your information,</p>
-                <div className="name-div flex-row">
+                <div className="name-div flex__row">
                     <Icons type="profile" />
                     <Input type="text" placeholder="First Name" onChange={(event) => setFname(event.target.value)} value={fName}/>
                 </div>
-                <div className="name-div flex-row">
+                <div className="name-div flex__row">
                     <Icons type="profile" />
                     <Input type="text" placeholder="Last Name" onChange={(event) => setLname(event.target.value)} value={lName}/>
                 </div>
-                <div className="name-div flex-row">
+                <div className="name-div flex__row">
                     <Icons type="email" />
                     <Input type="email" placeholder="Email" onChange={(event) => setEmail(event.target.value)} value={email}/>
                 </div>
-                <div className="password-div flex-row">
+                <div className="password-div flex__row">
                     <Icons type="lock" />
                     <Input type="password" placeholder="Create Password" onChange={(event) => setPassword(event.target.value)} value={password} refEl={inputRef}/>
                     <span onClick={() => showPassword()}><Icons type="eyes" /></span>
                 </div>
-                <div className="password-div flex-row">
+                <div className="password-div flex__row">
                     <Icons type="lock" />
                     <Input type="password" placeholder="Re-enter Password" refEl={passwordRef}/>
                     <span onClick={() => showPass()}><Icons type="eyes" /> </span>
