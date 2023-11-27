@@ -11,7 +11,7 @@ import AiBotImage from "@/public/img/ai-bot.png";
 import Image from "next/image";
 import How from "@/components/How";
 import Why from "@/components/Why";
-import { Loading } from "@/app/page";
+import { Loading } from "@/components/shared/loading";
 import Features from "@/components/features";
 import { useState, useEffect } from "react";
 

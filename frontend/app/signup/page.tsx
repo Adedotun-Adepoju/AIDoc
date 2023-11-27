@@ -4,11 +4,11 @@ import Image from "next/image"
 import VectorBot from '../../public/img/vector-bot.png'
 import Icons from "@/components/shared/icons"
 import Link from "next/link"
-import { StyledLogin } from "../login/page"
+import { StyledLogin } from "@/styles/StyledLogin"
 import { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import { Loading } from "../page"
+import { Loading } from "@/components/shared/loading"
 const Signup = () => {
     const [fName, setFname] = useState('')
     const [lName, setLname] = useState('')

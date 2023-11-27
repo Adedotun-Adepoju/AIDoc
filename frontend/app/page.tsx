@@ -4,15 +4,9 @@ import Landing from '@/components/home/Landing'
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import { useEffect, useState } from 'react';
-import { AiDocLogo } from '@/components/icons';
+import { Loading } from '@/components/shared/loading';
 
-export const Loading = () => {
-  return (
-    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
-      <AiDocLogo style={{width: '250px'}}/>
-    </div>
-  )
-}
+
 export default function Home() {
   const TOKEN_KEY = 'trial123'
   const [user, setUser] = useState<boolean>()

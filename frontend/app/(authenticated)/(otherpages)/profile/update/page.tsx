@@ -91,7 +91,7 @@ const UpdateProfilePage = () => {
         />
       </form>
     </div>
-    <Image src={AibotImg} className="update__profile hidden sm:inline-block" />
+    <Image src={AibotImg} className="update__profile hidden sm:inline-block"  alt="bot image"/>
     </section>
   );
 };
