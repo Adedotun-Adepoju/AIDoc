@@ -1,7 +1,11 @@
 import React from 'react'
 import { BloodIcon, DnaIcon, WeightIcon } from '../icons'
 
-const Status = () => {
+const Status = ({
+  userData
+}: {
+  userData: any
+}) => {
   return (
     <div className="w-full px-8 py-16 text-white bg-blueDark-100 lg:w-2/5 rounded-xl">
       <h2 className="mb-4 text-2xl font-bold">
@@ -13,7 +17,7 @@ const Status = () => {
             Weight (KG)
           </p>
           <span className='flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueLight'>
-            --
+            {userData.patient.weight}
             <WeightIcon className='h-8 '/>
           </span>
         </div>
@@ -22,7 +26,7 @@ const Status = () => {
             Genotype
           </p>
           <span className='flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueDark-200'>
-            --
+          {userData.patient.genotype}
             <DnaIcon className='h-12'/>
           </span>
         </div>
@@ -31,7 +35,7 @@ const Status = () => {
             Blood group
           </p>
           <span className='flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-red'>
-            --
+          {userData.patient.blood_group}
             <BloodIcon className='h-12'/>
           </span>
         </div>

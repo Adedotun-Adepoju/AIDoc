@@ -14,11 +14,15 @@ const Signup = () => {
     const [lName, setLname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [weight, setWeight] = useState('')
+    const [bloodgroup, setBloodgroup] = useState('')
+    const [genotype, setGenotype] = useState('')
     const [loadingPage, setpage] = useState<boolean>(false)
     const [loadingApi, setLoading] = useState<boolean>(false)
     const router = useRouter()
-    const SignUp = (first_name: string, last_name: string, email: string, password: string) => {
-        axios.post('/api/auth/sign-up', {first_name, last_name, email, password})
+    const SignUp = (first_name: string, last_name: string, email: string, password: string, weight: string, genotype: string, blood_group: string) => {
+        setLoading(true)
+        axios.post('/api/auth/sign-up', {first_name, last_name, email, password, weight, genotype, blood_group})
         .then((response) => {
             router.push('/login')            
         })
@@ -76,7 +80,19 @@ const Signup = () => {
                     <Input type="password" placeholder="Re-enter Password" refEl={passwordRef}/>
                     <span onClick={() => showPass()}><Icons type="eyes" /> </span>
                 </div>
-                <button onClick={(e) => (e.preventDefault(), SignUp(fName, lName, email, password))}>{loadingApi ? '...' :'SIGN UP'}</button>
+                <div className="password-div flex__row">
+                    <Icons type="genotype" />
+                    <Input type="text" placeholder="Genotype" onChange={(event) => setGenotype(event.target.value)} value={genotype} />
+                </div>
+                <div className="password-div flex__row">
+                    <Icons type="blood-group" />
+                    <Input type="text" placeholder="Blood Group" onChange={(event) => setBloodgroup(event.target.value)} value={bloodgroup} />
+                </div>
+                <div className="password-div flex__row">
+                    <Icons type="weight" />
+                    <Input type="text" placeholder="weight" onChange={(event) => setWeight(event.target.value)} value={weight} />
+                </div>
+                <button onClick={(e) => (e.preventDefault(), SignUp(fName, lName, email, password, weight, genotype, bloodgroup))}>{loadingApi ? '...' :'SIGN UP'}</button>
                 <Link href='/login'>
                      <p className="no-account">
                         Already have an account? <b>LOGIN</b>
