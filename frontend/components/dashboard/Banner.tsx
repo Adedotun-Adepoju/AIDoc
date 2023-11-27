@@ -11,7 +11,7 @@ const Banner = () => {
         <h2 className="flex gap-2 mb-2 text-2xl font-bold">Are you a Health <br className='sm:hidden'/> Practitioner?</h2>
         <p className="max-w-xl text-sm font-medium sm:text-base">Join our Health Professional <br className='sm:hidden'/> Team today!</p>
       </div>
-      <Button href='/register' title='Register Now' />
+      <Button href='/signup' title='Register Now' />
     </div>
     </section>
   )

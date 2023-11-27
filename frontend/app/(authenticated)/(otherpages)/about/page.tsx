@@ -3,8 +3,10 @@
 import { useForm } from "react-hook-form";
 import How from "@/components/How";
 import Why from "@/components/Why";
+import { Loading } from "@/app/page";
 import Features from "@/components/features";
 import Header from "@/components/header";
+import { useState, useEffect } from "react";
 
 type FormInput = {
   name: string;
@@ -20,8 +22,13 @@ const AboutPage = () => {
   } = useForm<FormInput>();
   const onSubmit = (data: FormInput) => console.log(data);
   console.log(errors);
-  return (
-    <>
+
+  const [loadingPage, setpage] = useState<boolean>(false)
+  useEffect(() => {
+    setpage(true)        
+}, [])
+  return (  <>
+    { loadingPage ?
     <Header />
     <section className="mx-auto relative">
       <div className="py-16">
@@ -42,7 +49,7 @@ const AboutPage = () => {
         <How />
         <Why />
       </div>
-    </section>
+    </section> : <Loading />}
     </>
   );
 };
