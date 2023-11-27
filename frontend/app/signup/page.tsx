@@ -5,18 +5,22 @@ import VectorBot from '../../public/img/vector-bot.png'
 import Icons from "@/components/shared/icons"
 import Link from "next/link"
 import { StyledLogin } from "../login/page"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import axios from "axios"
+import { useRouter } from "next/navigation"
+import { Loading } from "../page"
 const Signup = () => {
     const [fName, setFname] = useState('')
     const [lName, setLname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [loadingPage, setpage] = useState<boolean>(false)
+    const [loadingApi, setLoading] = useState<boolean>(false)
+    const router = useRouter()
     const SignUp = (first_name: string, last_name: string, email: string, password: string) => {
         axios.post('/api/auth/sign-up', {first_name, last_name, email, password})
         .then((response) => {
-            console.log(response)
+            router.push('/login')            
         })
         .catch((error) => {
             console.log(error)
@@ -38,7 +42,11 @@ const Signup = () => {
             passwordRef.current.type = "password"
           }
     }
+    useEffect(() => {
+        setpage(true)        
+    }, [])
     return ( <StyledLogin>
+        {loadingPage ? 
         <section className="flex__row login">
             <div className="content-div">
             <Link href='/'>
@@ -68,7 +76,7 @@ const Signup = () => {
                     <Input type="password" placeholder="Re-enter Password" refEl={passwordRef}/>
                     <span onClick={() => showPass()}><Icons type="eyes" /> </span>
                 </div>
-                <button onClick={(e) => (e.preventDefault(), SignUp(fName, lName, email, password))}>SIGN UP</button>
+                <button onClick={(e) => (e.preventDefault(), SignUp(fName, lName, email, password))}>{loadingApi ? '...' :'SIGN UP'}</button>
                 <Link href='/login'>
                      <p className="no-account">
                         Already have an account? <b>LOGIN</b>
@@ -78,7 +86,8 @@ const Signup = () => {
             <div className="img-div">
                 <Image src={VectorBot} alt="ai bot" width={451} height={556}  className="bot-img"/>
             </div>
-        </section>
+        </section> : <Loading />
+        }
         </StyledLogin>
     )
 }
