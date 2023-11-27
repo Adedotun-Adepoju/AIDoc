@@ -12,6 +12,10 @@ const Greeting = ({
 }) => {
   const [greeting, setGreeting] = useState("");
 
+const Greeting = ({ user_data }:{ user_data: any }) => {
+  const [greeting, setGreeting] = useState("");
+  
+  console.log(`User data from greeting: ${user_data}`);
   useEffect(() => {
     const getCurrentGreeting = () => {
       const currentHour = new Date().getHours();
@@ -36,6 +40,7 @@ const Greeting = ({
   return (
     <div className="flex flex-col justify-around w-full p-5 py-16 text-white sm:px-8 bg-blueDark-200 lg:w-3/5 rounded-xl">
       <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold">
+
         <span>{greeting ? greeting : "Hello!"}, {user.first_name}</span>
         <span>{greeting === "Good morning" ? <SunriseIcon className="w-10 h-10" /> : greeting === "Good afternoon" ? <SunIcon className="w-10 h-10" /> : <NightIcon className="w-10 h-10" />}</span>
       </h2>

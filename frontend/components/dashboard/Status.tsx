@@ -1,5 +1,5 @@
-import React from 'react'
-import { BloodIcon, DnaIcon, WeightIcon } from '../icons'
+import React from "react";
+import { BloodIcon, DnaIcon, WeightIcon } from "../icons";
 
 const Status = ({
   userData
@@ -30,29 +30,29 @@ const Status = ({
             <DnaIcon className='h-12'/>
           </span>
         </div>
-        <div className='col-span-1 p-4 bg-white rounded-lg'>
+        <div className="col-span-1 p-4 bg-white rounded-lg">
           <p className="mb-3 font-semibold text-black capitalize">
             Blood group
           </p>
+
           <span className='flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-red'>
           {userData.patient.blood_group}
             <BloodIcon className='h-12'/>
           </span>
         </div>
         <div className="gradient_border">
-          <div className='flex flex-col justify-around h-full col-span-1 p-4 rounded-lg bg-blueDark-100'>
+          <div className="flex flex-col justify-around h-full col-span-1 p-4 rounded-lg bg-blueDark-100">
             <p className="mb-3 text-base font-semibold text-white capitalize sm:text-lg">
               Last Chat with AI-DOC
             </p>
-            <span className='flex items-center justify-between text-lg font-bold text-white sm:text-3xl lg:text-xl xl:text-3xl'>
+            <span className="flex items-center justify-between text-lg font-bold text-white sm:text-3xl lg:text-xl xl:text-3xl">
               4days ago
             </span>
           </div>
         </div>
-        
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Status
+export default Status;

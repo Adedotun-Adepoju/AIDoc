@@ -1,3 +1,4 @@
+"use client"
 import {
   BloodIcon,
   DnaIcon,
@@ -12,9 +13,12 @@ import ConnectDocBtn from "@/components/elements/ConnectDocBtn";
 import ChatWithDocBotBtn from "@/components/elements/ChatWithDocBotBtn";
 import Button from "@/components/elements/Button";
 import BackBtn from "@/components/elements/BackBtn";
+import Header from "@/components/header";
 
 const ProfilePage = () => {
   return (
+    <>
+    <Header />
     <main className="px-5 mx-auto max-w-7xl md:px-10 relative">
       <BackBtn />
       <section className="max-w-5xl mx-auto mt-8">
@@ -110,6 +114,7 @@ const ProfilePage = () => {
         </div>
       </section>
     </main>
+    </>
   );
 };
 

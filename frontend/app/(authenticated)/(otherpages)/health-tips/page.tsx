@@ -1,6 +1,7 @@
 import BackBtn from "@/components/elements/BackBtn";
 import ChatWithDocBotBtn from "@/components/elements/ChatWithDocBotBtn";
 import ConnectDocBtn from "@/components/elements/ConnectDocBtn";
+import Header from "@/components/header";
 import { BackIcon, BloodIcon, DnaIcon, WeightIcon } from "@/components/icons";
 import { healthTips } from "@/utils";
 import Image from "next/image";
@@ -8,6 +9,8 @@ import React from "react";
 
 const page = () => {
   return (
+    <>
+    <Header />
     <main className="px-5 py-16 mx-auto max-w-7xl md:px-10 relative">
       <BackBtn />
       <section className=" max-w-5xl gap-8 mx-auto mt-8">
@@ -83,6 +86,7 @@ const page = () => {
         </div>
       </section>
     </main>
+    </>
   );
 };
 

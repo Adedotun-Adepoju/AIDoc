@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import AiBotImage from '@/public/img/ai-bot.png'
 import Image from "next/image";
 import { ContactFormInputType } from "@/types"
+import Header from "@/components/header";
 import { useState, useEffect } from "react";
 import { Loading } from "@/app/page";
 
@@ -23,12 +24,14 @@ const ContactPage = () => {
   } = useForm<ContactFormInputType>();
   const onSubmit = (data: ContactFormInputType) => console.log(data);
   console.log(errors);
+
   const [loadingPage, setpage] = useState<boolean>(false)
   useEffect(() => {
     setpage(true)        
 }, [])
   return ( <>
-    { loadingPage ? 
+    { loadingPage ?
+    <Header />
     <section className="px-5 mx-auto max-w-7xl md:px-10 relative">
       <div className="py-16 flex flex-col lg:flex-row gap-8">
         <div className="w-full lg:w-1/2">
@@ -89,6 +92,7 @@ const ContactPage = () => {
         </form>
       </div>
       <Image src={AiBotImage} className="fixed bottom-0 right-0 -z-10 opacity-20 hidden md:block " />
+
     </section> : <Loading /> }
     </>
   );

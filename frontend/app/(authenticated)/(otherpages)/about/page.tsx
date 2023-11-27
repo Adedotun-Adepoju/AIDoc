@@ -1,18 +1,11 @@
 "use client";
-import {
-  FacebookIcon,
-  InstagramIcon,
-  MailIcon,
-  TripleArrowIcon,
-  TwitterIcon,
-} from "@/components/icons";
+
 import { useForm } from "react-hook-form";
-import AiBotImage from "@/public/img/ai-bot.png";
-import Image from "next/image";
 import How from "@/components/How";
 import Why from "@/components/Why";
 import { Loading } from "@/app/page";
 import Features from "@/components/features";
+import Header from "@/components/header";
 import { useState, useEffect } from "react";
 
 type FormInput = {
@@ -29,12 +22,14 @@ const AboutPage = () => {
   } = useForm<FormInput>();
   const onSubmit = (data: FormInput) => console.log(data);
   console.log(errors);
+
   const [loadingPage, setpage] = useState<boolean>(false)
   useEffect(() => {
     setpage(true)        
 }, [])
   return (  <>
     { loadingPage ?
+    <Header />
     <section className="mx-auto relative">
       <div className="py-16">
         <h2 className="w-full text-center text-3xl md:text-7xl font-semibold capitalize text-blueDark-200 mb-4">
