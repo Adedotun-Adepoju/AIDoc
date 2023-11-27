@@ -134,7 +134,7 @@ const Footer = () => {
     ]
     return ( <StyledFooter>
         <footer>
-            <div className="flex-row main">
+            <div className="flex__row main">
              <div className="details">
                 <div className="key">
                     <p>Get in touch with us</p>
