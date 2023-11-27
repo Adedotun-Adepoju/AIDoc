@@ -97,7 +97,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <div className="flex gap-2 justify-between mt-6 col-span-2 order-first md:order-none items-center">
-              <h3 className="text-2xl text-white font-semibold capitalize md:hidden">
+              <h3 className="text-lg xs:text-xl text-white font-semibold capitalize md:hidden">
                 Your current status
               </h3>
               <Button
