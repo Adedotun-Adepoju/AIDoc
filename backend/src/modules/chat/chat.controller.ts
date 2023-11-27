@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, Get, UseGuards, HttpException } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { createConversationDto } from './dto/create-conversation.dto';
 import { createPromptDto } from './dto/create-prompt.dto';
@@ -19,7 +19,7 @@ export class ChatController {
       return ResponseHelper.successResponse("Created succesfully", 201, conversation)
     } catch(error) {
       console.log(error)
-      return ResponseHelper.errorResponse(error.message, 404, [])
+      throw new HttpException(error.message, 404);
     }
   }
 
@@ -31,7 +31,7 @@ export class ChatController {
       return ResponseHelper.successResponse("Created succesfully", 201, prompt)
     } catch(error) {
       console.log(error)
-      return ResponseHelper.errorResponse(error.message, 404, [])
+      throw new HttpException(error.message, 404);
     }
   }
 
@@ -43,7 +43,7 @@ export class ChatController {
       return ResponseHelper.successResponse("Conversations fetched succesfully", 200, conversations)
     } catch(error) {
       console.log(error)
-      return ResponseHelper.errorResponse(error.message, 404, [])
+      throw new HttpException(error.message, 404);
     }
   }
 
@@ -55,7 +55,7 @@ export class ChatController {
       return ResponseHelper.successResponse("Prompts fetched succesfully", 200, conversations)
     } catch(error) {
       console.log(error)
-      return ResponseHelper.errorResponse(error.message, 404, [])
+      throw new HttpException(error.message, 404);
     }
   }
 }

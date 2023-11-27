@@ -24,7 +24,7 @@ export class AuthController {
       return ResponseHelper.successResponse('User created successfully', 201, user);
     } catch(error){
       console.log(error)
-      throw new HttpException(error.message, error.status);
+      throw new HttpException(error.message, 400);
     }
   }
 

@@ -17,7 +17,7 @@ export class PatientsController {
       return ResponseHelper.successResponse(message, 200, data)
     } catch(error){
       console.log(error)
-      return ResponseHelper.errorResponse(error.message, 404, [])
+      throw new HttpException(error.message, 404);
     }
   }
 
@@ -29,7 +29,7 @@ export class PatientsController {
       return ResponseHelper.successResponse(message, 200, data)
     } catch(error){
       console.log(error)
-      return ResponseHelper.errorResponse(error.message, 404, [])
+      throw new HttpException(error.message, 404);
     }
   }
 }

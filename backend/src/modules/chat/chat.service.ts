@@ -66,7 +66,7 @@ export class ChatService {
     })
 
     if(!conversation){
-      throw new Error("Conversation does not exist")
+      throw new Error("Conversation id does not exist");
     }
 
     const prompt = this.promptRepo.create({
@@ -87,8 +87,8 @@ export class ChatService {
     })
 
     if(!conversation){
-      throw new Error("Conversation does not exist")
-    }
+      throw new Error("Conversation id does not exist")
+    };
 
     const prompts = await this.promptRepo.find({
       where: {

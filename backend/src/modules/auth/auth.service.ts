@@ -49,6 +49,13 @@ export class AuthService {
 
   async signUp(payload): Promise<Partial<User>>{
     const hashedPassword = await bcrypt.hash(payload.password, 10)
+
+    const existingUser = await this.usersService.findUserByEmail(payload.email);
+
+    if(existingUser){
+      throw new Error("This email already exists. Please proceed to login")
+    }
+
     const newUser = await this.usersService.createUser(
       payload.first_name,
       payload.last_name,
@@ -57,19 +64,20 @@ export class AuthService {
     )
 
     // Todo: Create email verification record
-    const verification = this.emailVerificationRepo.create({
-      email: payload.email,
-      status: VerificationStatus.NOT_VERIFIED,
-      user: newUser
-    })
+    // const verification = this.emailVerificationRepo.create({
+    //   email: payload.email,
+    //   status: VerificationStatus.NOT_VERIFIED,
+    //   user: newUser
+    // })
 
-    await this.emailVerificationRepo.save(verification)
-    // Send email verification
-    const url = process.env.BASE_URL
-    const verificationId = verification.id 
+    // await this.emailVerificationRepo.save(verification)
 
-    const emailContent = await this.generateWelcomeEmail(newUser.first_name, newUser.last_name, url, verificationId)
-    this.mailerService.sendMail(payload.email, "Verify Email Address for AI-Doc", emailContent)
+    // Send email verification (To be implemented later)
+    // const url = process.env.BASE_URL
+    // const verificationId = verification.id 
+
+    // const emailContent = await this.generateWelcomeEmail(newUser.first_name, newUser.last_name, url, verificationId)
+    // this.mailerService.sendMail(payload.email, "Verify Email Address for AI-Doc", emailContent)
 
     return newUser
   }
