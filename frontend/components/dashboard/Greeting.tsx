@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BotIcon, SunIcon } from "../icons";
+import { BotIcon, NightIcon, SunIcon, SunriseIcon } from "../icons";
 import ChatWithDocBotBtn from "../elements/ChatWithDocBotBtn";
 import ConnectDocBtn from "../elements/ConnectDocBtn";
 
@@ -33,7 +33,7 @@ const Greeting = ({ ...props }) => {
     <div className="flex flex-col justify-around w-full p-5 py-16 text-white sm:px-8 bg-blueDark-200 lg:w-3/5 rounded-xl">
       <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold">
         <span>{greeting ? greeting : "Hello!"}, {props.user.name}</span>
-        <span>{greeting === "Good morning" ? <SunIcon className="w-10 h-10" /> : greeting === "Good morning" ? <SunIcon className="w-10 h-10" /> : <SunIcon className="w-10 h-10" />}</span>
+        <span>{greeting === "Good morning" ? <SunriseIcon className="w-10 h-10" /> : greeting === "Good afternoon" ? <SunIcon className="w-10 h-10" /> : <NightIcon className="w-10 h-10" />}</span>
       </h2>
       <h2>How are you feeling today?</h2>
       <p className="max-w-xl mb-6 text-base font-medium">
