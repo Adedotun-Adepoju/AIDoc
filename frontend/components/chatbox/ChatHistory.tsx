@@ -76,10 +76,10 @@ const ChatHistory = ({...props}) => {
           )}
         </div>
       </div>
-      <button type='button' className='w-max rounded-xl flex gap-2 px-4 py-2 text-white bg-blueLight/10 hover:bg-blueLight/20 hover:text-red transition-all duration-200 ease-in-out hover:scale-105 '>
+      <Link href='/' className='w-max rounded-xl flex gap-2 px-4 py-2 text-white bg-blueLight/10 hover:bg-blueLight/20 hover:text-red transition-all duration-200 ease-in-out hover:scale-105 '>
         <LogoutIcon className="w-6 h-6" />
         Logout
-      </button>
+      </Link>
     </section>
   );
 };

@@ -209,8 +209,6 @@ const ChatBoxPage = () => {
                   </div>
                 </div>
               ) : null
-                
-              
             }
           </div>
 
