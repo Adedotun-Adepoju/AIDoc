@@ -3,21 +3,14 @@ import HealthTips from '@/components/dashboard/HealthTips'
 import Greeting from '@/components/dashboard/Greeting'
 import Status from '@/components/dashboard/Status'
 import Header from '../header'
+import Footer from '../footer'
 
-interface UserDataProps {
-  name: string,
-  age: number,
-}
 export default function Dashboard({
   user_data
 }: {
   user_data: any
 }) {
 
-  const userData: UserDataProps = {
-    name: 'Christian',
-    age: 25,
-  }
   return (
     <>
     <Header />
@@ -29,6 +22,7 @@ export default function Dashboard({
       <Banner />
       <HealthTips />
     </main>
+    <Footer />
     </>
   )
 }
