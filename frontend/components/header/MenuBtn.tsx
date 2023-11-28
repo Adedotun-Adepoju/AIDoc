@@ -13,7 +13,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { cx } from "@/utils";
 
-const MenuBtn = () => {
+const MenuBtn = ({user_name}: {user_name: string}) => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const logOut = () => {
@@ -33,7 +33,7 @@ const MenuBtn = () => {
           alt="profile"
           className="w-8 h-8 border rounded-full border-blueDark-200"
         />
-        <span className="font-semibold uppercase">christian</span>
+        <span className="font-semibold uppercase">{user_name}</span>
         {toggleDropdown ? (
           <ChevronDownIcon className="w-3 h-3 transform rotate-180" />
         ) : (
