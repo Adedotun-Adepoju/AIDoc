@@ -6,10 +6,8 @@ import SideBar from "@/components/chatbox/SideBar";
 import UserMessage from "@/components/chatbox/UserMessage";
 import { AiDocLogo, SendIcon, TypingLoadingIcon } from "@/components/icons";
 import React, { useEffect, useState } from "react";
-import { TOKEN_KEY, cx, queryGPT, saveConvo, savePrompt } from "@/utils";
+import { bearerToken, checkLoggedIn, cx, queryGPT, saveConvo, savePrompt } from "@/utils";
 import { Twirl as Hamburger } from "hamburger-react";
-import Cookies from 'js-cookie';
-import jwt from 'jsonwebtoken';
 import { useRouter } from "next/navigation"
 
 export interface ChatMessage {
@@ -26,7 +24,7 @@ interface ConversationState {
 }
 
 const systemPrompt =
-  "You are an AI assistant that diagnoses the symptoms given by a user and asks questions one after the other to understand more about the symptom before arriving at the disease. Please ask just 3 follow up questions one by one so the user is not overwhelmed. After diagnosing the disease, I want you to ask the user if they want suggested treatments or they want to visit the nearest hospital.";
+  "As an AI doctor, your task is to analyze symptoms provided by a user and inquire further to gain a deeper understanding. Ask precisely three follow-up questions, one at a time, to gather additional information without overwhelming the user. Once the diagnosis is made, inquire whether the user prefers suggested treatments or if they would like guidance on visiting the nearest hospital for further assistance.";
 const initialConvoStatement = [ { role: "system", content: systemPrompt,}];
 const initialConvoState = {
   id: "",
@@ -41,8 +39,6 @@ const initialConvoState = {
   ],
 };
 
-//const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2NC0yOTFiLTRmMzktYmJmMi0yNzgzNDZmYjM3YTgiLCJ1c2VybmFtZSI6ImQuZS5hZGVwb2p1QGdtYWlsLmNvbSIsImlhdCI6MTcwMDkzMDIyMywiZXhwIjoxNzAxMTg5NDIzfQ.nrJsCxnzZ95x_9xpn0ILMWxG9S03yDQFHjSfEuyW2eM`;
-
 const ChatBoxPage = () => {
   const [userInput, setUserInput] = useState("");
   const [aiResponse, setAiResponse] = useState("");
@@ -50,23 +46,23 @@ const ChatBoxPage = () => {
   const [conversation, setConversation] =
     useState<ConversationState>(initialConvoState);
   const [user_data, setUser_data] = useState<any>()
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [token, setToken] = useState<string>('')
 
   const router = useRouter()
 
   useEffect(() => {
-    const jtw = Cookies.get(TOKEN_KEY)
-    if(jtw) {
-      setIsLoggedIn(true)
-       const data = jwt.verify(jtw, TOKEN_KEY)
-       setUser_data(data)
-       setToken(jtw)
+    const { isLoggedIn, user_data } = checkLoggedIn();
+
+    const bToken = bearerToken();
+
+    if (isLoggedIn ) {
+      setUser_data(user_data);
+      setToken(`Bearer ${bToken}`);
     } else {
-      setIsLoggedIn(false)
-      router.push('/login')
+      // User is not logged in, you can redirect to the login page
+      router.push('/login');
     }
-  }, [])
+  }, []);
 
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +71,7 @@ const ChatBoxPage = () => {
  
   const chatAiDoc = async () => {
     try {
-      const response = await queryGPT(conversation.id !== '' ? conversation.chatMessages : initialConvoStatement);
+      const response = await queryGPT(conversation.id !== '' ? conversation.chatMessages : [...initialConvoStatement,{role: 'user', content: userInput}]);
       if (response.choices) {
         const aiDocMessage = response.choices[0].message.content;
         setAiResponse(aiDocMessage);
@@ -97,14 +93,16 @@ const ChatBoxPage = () => {
             chatMessages: updatedChatMessages,
           };
         });
-        const saveAiResponse = await savePrompt({
-          token,
-          body: {
-            content: aiDocMessage,
-            conversation_id: conversation.id,
-            role: "assistant",
-          },
-        });
+        if(conversation.id) {
+          savePrompt({
+            token,
+            body: {
+              content: aiDocMessage,
+              conversation_id: conversation.id,
+              role: "assistant",
+            },
+          });
+        }
       }
     } catch (error) {
       console.error("Error starting conversation:", error);
@@ -113,6 +111,7 @@ const ChatBoxPage = () => {
 
   const startConversation = async () => {
     try {
+      if (conversation.chatMessages.length === 1) { conversation.chatMessages.push({ role: "user", content: userInput })}
       chatAiDoc();
       const response = await saveConvo({
         token,
@@ -126,8 +125,6 @@ const ChatBoxPage = () => {
         created_at: response.data.created_at,
         user_id: response.data.user_id,
       }));
-      console.log(`Starting prompt for startConversation ${conversation}...`);
-      console.log(`Response from saving convo: ${response.data}...`);
     } catch (error) {
       console.error("Error starting conversation:", error);
     }
@@ -135,7 +132,6 @@ const ChatBoxPage = () => {
   const startPrompt = async () => {
     try {
       chatAiDoc();
-      console.log(`Starting prompt for conversation ${conversation}...`);
       savePrompt({
         token,
         body: {
@@ -157,7 +153,8 @@ const ChatBoxPage = () => {
         if (!prevConversation) {
           return initialConvoState; // Handle the case when conversation is not initialized
         }
-
+        
+        if (conversation.chatMessages.length > 2) {
         const updatedChatMessages = [
           ...prevConversation.chatMessages,
           {
@@ -169,7 +166,7 @@ const ChatBoxPage = () => {
         return {
           ...prevConversation,
           chatMessages: updatedChatMessages,
-        };
+        };} return prevConversation;
       });
       setUserInput("");
     }
