@@ -12,8 +12,8 @@ const UpdateProfilePage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ProfileUpdateFormInputType>();
-  const onSubmit = (data: ProfileUpdateFormInputType) => console.log(data);
-  console.log(errors);
+  const onSubmit = (data: ProfileUpdateFormInputType) => {return data}
+
   return (
     <section className="py-16 px-5 mx-auto max-w-7xl md:px-10 relative">
       <div className="flex max-w-5xl mx-auto">
