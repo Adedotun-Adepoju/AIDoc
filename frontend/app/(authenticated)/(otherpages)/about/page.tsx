@@ -19,8 +19,8 @@ const AboutPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>();
-  const onSubmit = (data: FormInput) => console.log(data);
-  console.log(errors);
+  const onSubmit = (data: FormInput) => {return data}
+
   const [loadingPage, setpage] = useState<boolean>(false)
   useEffect(() => {
     setpage(true)        
