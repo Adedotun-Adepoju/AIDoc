@@ -64,7 +64,7 @@ const GettingStarted = () => {
                 <p>
                     Making informed decisions about your health has never been easier. Join AI-DOC today and take control of your well-being.
                 </p>
-               <Link href='/register'>
+               <Link href='/signup'>
                     <button>GET STARTED</button>
                 </Link>
             </div>

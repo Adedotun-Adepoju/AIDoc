@@ -2,6 +2,7 @@
 import styled from "styled-components"
 import AI from '../../public/img/Ai-banner.png'
 import Image from "next/image"
+import Link from "next/link"
 
 const StyledSubHeader = styled.section`
     gap: 22px;
@@ -74,7 +75,7 @@ const SubHeader = () => {
                 <p>
                     AI-DOC is an innovative web application that harnesses the power of artificial intelligence to provide personalized symptom analysis and preliminary medical advice. Our mission is to empower users to make informed decisions about their health, offering guidance that is quick, reliable, and accessible.
                 </p>
-                <button>GET STARTED</button>
+                <Link href='/signup'><button>GET STARTED</button></Link>
             </div>
             <div className="img-div">
                 <Image src={AI} alt="ai banner" width={391} height={387} className="img-bot"/>
