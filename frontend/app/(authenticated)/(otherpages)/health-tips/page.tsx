@@ -1,12 +1,13 @@
+"use client"
 import BackBtn from "@/components/elements/BackBtn";
 import ChatWithDocBotBtn from "@/components/elements/ChatWithDocBotBtn";
 import ConnectDocBtn from "@/components/elements/ConnectDocBtn";
-import { BackIcon, BloodIcon, DnaIcon, WeightIcon } from "@/components/icons";
+import { BloodIcon, DnaIcon, WeightIcon } from "@/components/icons";
 import { healthTips } from "@/utils";
 import Image from "next/image";
-import React from "react";
 
-const page = () => {
+const HealthTipsPage = () => {
+
   return (
     <main className="px-5 py-16 mx-auto max-w-7xl md:px-10 relative">
       <BackBtn />
@@ -86,4 +87,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default HealthTipsPage;
