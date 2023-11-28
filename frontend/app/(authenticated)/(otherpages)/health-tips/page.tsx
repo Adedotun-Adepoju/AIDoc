@@ -71,7 +71,7 @@ const HealthTipsPage = () => {
                   Last Chat with AI-DOC
                 </p>
                 <span className="flex items-center justify-between text-lg font-bold text-white sm:text-3xl lg:text-xl xl:text-3xl">
-                  4days ago
+                  <span className="text-grayLight">--</span>
                 </span>
               </div>
             </div>
