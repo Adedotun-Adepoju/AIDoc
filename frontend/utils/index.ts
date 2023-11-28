@@ -9,9 +9,25 @@ import axios from 'axios'
 import { ChatMessage } from '@/app/(authenticated)/(chatbox)/chatbox/page'
 
 
-const openAiUrl = "https://api.openai.com/v1/chat/completions"
-const openAiApiKey = process.env.NEXT_OPEN_AI_KEY
+export const openAiApiKey = assertValue(
+  process.env.NEXT_PUBLIC_OPEN_AI_KEY,
+  'Missing environment variable: NEXT_PUBLIC_OPEN_AI_KEY',
+)
+export const TOKEN_KEY = assertValue(
+  process.env.NEXT_PUBLIC_TOKEN_KEY,
+  'Missing environment variable: NEXT_PUBLIC_TOKEN_KEY',
+)
+export const OPEN_AI_URL = assertValue(
+  process.env.NEXT_PUBLIC_OPEN_AI_URL,
+  'Missing environment variable: NEXT_PUBLIC_OPEN_AI_URL',
+)
 
+function assertValue<T>(v: T | undefined, errorMessage: string): T {
+  if (v === undefined) {
+    throw new Error(errorMessage)
+  }
+  return v
+}
 
 
 export const cx = (...classNames: (string | undefined)[]) => {
@@ -104,9 +120,6 @@ export const savePrompt = async ({ token, body }: savePromptType): Promise<any> 
   }
 };
 
-
-
-
 export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
   let data = JSON.stringify({
     "model": "gpt-3.5-turbo",
@@ -116,7 +129,7 @@ export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
   });
   
   try {
-    const axiosResponse = await axios.post(openAiUrl, data, {
+    const axiosResponse = await axios.post(OPEN_AI_URL, data, {
       headers: { 
         Authorization: `Bearer ${openAiApiKey}`, 
         'Content-Type': 'application/json'
@@ -141,10 +154,9 @@ export const getConversations = async ({user_id, token}: getConversationsType): 
         'Content-Type': 'application/json',
       },
     });
-    console.log(axiosResponse);
     return axiosResponse.data;
   } catch (error) {
-    console.error(error);
-    throw error; // Re-throw the error to propagate it to the caller
+    console.error(`Error getting conversations(getConversations): ${error}`);
+    // throw error; // Re-throw the error to propagate it to the caller
   }
 };
