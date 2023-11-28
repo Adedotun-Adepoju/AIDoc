@@ -3,46 +3,39 @@
 import React, { useEffect, useState } from 'react';
 import { AiLogoWhiteIcon, BackIcon, DashboardIcon, LogoutIcon, ProfileIcon, SpecialistIcon } from '../icons';
 import { formatDate, getConversations, getConversationsType } from '@/utils';
-import SideBar from './SideBar';
 import Link from 'next/link';
 
-const queriesFromDatabase = [
-  { title: 'Query 1', date: '2023-11-25T12:30:00Z' },
-  { title: 'Query 2', date: '2023-11-24T08:45:00Z' },
-  { title: 'Query 3', date: '2023-11-23T15:20:00Z' },
-  { title: 'Query 4', date: '2023-11-22T09:10:00Z' },
-  { title: 'Query 5', date: '2023-11-21T18:55:00Z' },
-  { title: 'Query 6', date: '2023-11-20T11:40:00Z' },
-  { title: 'Query 7', date: '2023-11-19T07:25:00Z' },
-  { title: 'Query 8', date: '2023-11-18T14:15:00Z' },
-  { title: 'Query 9', date: '2023-11-17T10:05:00Z' },
-  { title: 'Query 10', date: '2023-11-16T22:50:00Z' },
-];
+interface ChatHistoryProps {
+  currentConvoId: any;
+  user_id: string;
+  token: string;
+}
 
 export type ConversationHistoryType = {
   id: string;
   title: string;
   cycles_number: number;
   user_id: string;
-  created_at: string; // Assuming this is a string representation of a date
-  updated_at: string; // Assuming this is a string representation of a date
+  created_at: string;
+  updated_at: string;
 };
-const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2NC0yOTFiLTRmMzktYmJmMi0yNzgzNDZmYjM3YTgiLCJ1c2VybmFtZSI6ImQuZS5hZGVwb2p1QGdtYWlsLmNvbSIsImlhdCI6MTcwMDkzMDIyMywiZXhwIjoxNzAxMTg5NDIzfQ.nrJsCxnzZ95x_9xpn0ILMWxG9S03yDQFHjSfEuyW2eM`;
+// const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2NC0yOTFiLTRmMzktYmJmMi0yNzgzNDZmYjM3YTgiLCJ1c2VybmFtZSI6ImQuZS5hZGVwb2p1QGdtYWlsLmNvbSIsImlhdCI6MTcwMDkzMDIyMywiZXhwIjoxNzAxMTg5NDIzfQ.nrJsCxnzZ95x_9xpn0ILMWxG9S03yDQFHjSfEuyW2eM`;
 
-const user_id = '1be88464-291b-4f39-bbf2-278346fb37a8'
+// const user_id = '3914ecba-4857-441d-a0f8-7f00f699bc90'
 
-const ChatHistory = ({...props}) => {
+const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, token}) => {
   const [history, setHistory] = useState<ConversationHistoryType[]>([]);
 
   useEffect(() => {
     const getHistory = async () => {
       const history = await getConversations({token, user_id});
-      setHistory(history.data);
-      console.log(`Trying to get the datya array: ${history.data}`);
+      if (history) {
+        setHistory(history.data);
+      }
     }
     getHistory();
   }
-  , [props.currentConvoId]);
+  , [currentConvoId]); 
 
   return (
     <section className='blueLight mx-auto flex flex-col justify-between h-full py-8 p-5'>
