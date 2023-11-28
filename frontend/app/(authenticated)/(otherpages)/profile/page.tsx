@@ -17,25 +17,21 @@ import BackBtn from "@/components/elements/BackBtn";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { useEffect, useState } from "react";
-import { TOKEN_KEY } from "@/utils";
+import { TOKEN_KEY, checkLoggedIn } from "@/utils";
 import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
-  const [loading, setLoading] = useState<boolean>(true);
   const [user_data, setUser_data] = useState<any>();
-  const [token, setToken] = useState<string>("");
-
   const router = useRouter();
 
   useEffect(() => {
-    const jtw = Cookies.get(TOKEN_KEY);
-    if (jtw) {
-      const data = jwt.verify(jtw, TOKEN_KEY);
-      setUser_data(data);
-      setToken(jtw);
-      setLoading(false);
+    const { isLoggedIn, user_data } = checkLoggedIn();
+
+    if (isLoggedIn ) {
+      setUser_data(user_data);
     } else {
-      router.push("/login");
+      // User is not logged in, you can redirect to the login page
+      router.push('/login');
     }
   }, []);
 

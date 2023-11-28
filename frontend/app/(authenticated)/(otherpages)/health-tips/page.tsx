@@ -3,10 +3,25 @@ import BackBtn from "@/components/elements/BackBtn";
 import ChatWithDocBotBtn from "@/components/elements/ChatWithDocBotBtn";
 import ConnectDocBtn from "@/components/elements/ConnectDocBtn";
 import { BloodIcon, DnaIcon, WeightIcon } from "@/components/icons";
-import { healthTips } from "@/utils";
+import { bearerToken, checkLoggedIn, healthTips } from "@/utils";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const HealthTipsPage = () => {
+  const [user_data, setUser_data] = useState<any>();
+  const router = useRouter();
+
+  useEffect(() => {
+    const { isLoggedIn, user_data } = checkLoggedIn();
+
+    if (isLoggedIn ) {
+      setUser_data(user_data);
+    } else {
+      // User is not logged in, you can redirect to the login page
+      router.push('/login');
+    }
+  }, []);
 
   return (
     <main className="px-5 py-16 mx-auto max-w-7xl md:px-10 relative">
@@ -45,14 +60,22 @@ const HealthTipsPage = () => {
               <div className="col-span-1 p-4 bg-white rounded-lg">
                 <p className="mb-3 font-semibold text-black">Weight (KG)</p>
                 <span className="flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueLight">
-                  59
+                {user_data?.patient.weight ? (
+                    user_data?.patient.weight
+                  ) : (
+                    <span className="text-grayLight">--</span>
+                  )}
                   <WeightIcon className="h-8 " />
                 </span>
               </div>
               <div className="col-span-1 p-4 bg-white rounded-lg">
                 <p className="mb-3 font-semibold text-black">Genotype</p>
                 <span className="flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueDark-200">
-                  AA
+                {user_data?.patient.genotype ? (
+                    user_data?.patient.genotype
+                  ) : (
+                    <span className="text-grayLight">--</span>
+                  )}
                   <DnaIcon className="h-12" />
                 </span>
               </div>
@@ -61,7 +84,11 @@ const HealthTipsPage = () => {
                   Blood group
                 </p>
                 <span className="flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-red">
-                  O+
+                {user_data?.patient.blood_group ? (
+                    user_data?.patient.blood_group
+                  ) : (
+                    <span className="text-grayLight">--</span>
+                  )}
                   <BloodIcon className="h-12" />
                 </span>
               </div>

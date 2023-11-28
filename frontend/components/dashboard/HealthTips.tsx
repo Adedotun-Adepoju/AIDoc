@@ -7,15 +7,15 @@ const HealthTips = () => {
   return (
     <section className='px-5 mx-auto mt-16 md:px-10 max-w-7xl'>
       <div className='flex justify-between text-blueDark-200 sm:text-2xl text-lg font-bold capitalize'>
-      <h2 className="flex gap-2 mb-4 ">Common Health Tips For You</h2>
+      <h2 className="flex gap-2 mb-8 ">Common Health Tips For You</h2>
       <Link href='/health-tips' className="flex items-center gap-2 text-base font-semibold">
         View All
       </Link></div>
-    <div className='flex flex-col gap-3 overflow-hidden md:overflow-x-auto md:flex-row'>
+    <div className=' flex flex-col lg:gap-6 gap-3 overflow-hidden md:flex-row'>
       {
         healthTips.slice(0,3).map((tip, index) => (
-          <div key={index} className='bg-white grid gap-4 grid-cols-12 p-4 items-center justify-start border rounded-xl border-blueLight md:min-w-[500px]'>
-            <div className='h-full col-span-4 overflow-hidden rounded-xl'>
+          <div key={index} className='bg-white shadow-md md:animate-marquee flex flex-col xs:grid overflow-x-auto gap-4 grid-cols-12 p-4 items-center justify-start border rounded-xl border-blueLight md:min-w-[500px]'>
+            <div className='h-full w-full col-span-4 overflow-hidden rounded-xl'>
               <Image src={tip.image}
                 alt={tip.title}
                 className='object-cover object-center w-full h-full transition-all duration-200 ease-in-out aspect-square hover:scale-105' />
