@@ -1,4 +1,5 @@
 "use client";
+
 import {
   FacebookIcon,
   InstagramIcon,
@@ -7,8 +8,6 @@ import {
   TwitterIcon,
 } from "@/components/icons";
 import { useForm } from "react-hook-form";
-import AiBotImage from '@/public/img/ai-bot.png'
-import Image from "next/image";
 import { ContactFormInputType } from "@/types"
 import { useState, useEffect } from "react";
 import { Loading } from "@/components/shared/loading";
