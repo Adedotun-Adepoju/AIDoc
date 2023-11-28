@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken';
 import { useRouter } from "next/navigation"
 import { Loading } from "@/components/shared/loading"
 import { StyledLogin } from "@/styles/StyledLogin"
+import Header from "@/components/header"
 
 const Login = () => {
     const [name, setName] = useState('')
@@ -46,7 +47,7 @@ const Login = () => {
     useEffect(() => {
         setpage(true)        
     }, [])
-    return ( <StyledLogin>
+    return ( <><Header /><StyledLogin>
         { loadingPage ?
         <section className="flex__row login">
             <div className="content-div">
@@ -80,7 +81,7 @@ const Login = () => {
             </div>
         </section> : <Loading />
         }
-        </StyledLogin>
+        </StyledLogin></>
     )
 }
 export default Login
