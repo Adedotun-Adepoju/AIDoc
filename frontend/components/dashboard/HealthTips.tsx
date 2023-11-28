@@ -18,7 +18,6 @@ const HealthTips = () => {
             <div className='h-full col-span-4 overflow-hidden rounded-xl'>
               <Image src={tip.image}
                 alt={tip.title}
-                fill
                 className='object-cover object-center w-full h-full transition-all duration-200 ease-in-out aspect-square hover:scale-105' />
             </div>
             <div className='col-span-8'>
