@@ -29,7 +29,7 @@ const Signup = () => {
             router.push('/login')            
         })
         .catch((error) => {
-            console.log(error)
+            return
         })
     }
     const inputRef = useRef<HTMLInputElement>(null)
