@@ -20,8 +20,8 @@ const ContactPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ContactFormInputType>();
-  const onSubmit = (data: ContactFormInputType) => console.log(data);
-  console.log(errors);
+  const onSubmit = (data: ContactFormInputType) => {return data};
+
   const [loadingPage, setpage] = useState<boolean>(false)
   useEffect(() => {
     setpage(true)        
