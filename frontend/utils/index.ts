@@ -131,6 +131,7 @@ export const savePrompt = async ({ token, body }: savePromptType): Promise<any> 
   }
 };
 
+
 export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
   let data = JSON.stringify({
     "model": "gpt-3.5-turbo",
