@@ -1,28 +1,30 @@
 "use client"
+
 import Dashboard from '@/components/home/Dashboard'
 import Landing from '@/components/home/Landing'
-import Cookies from 'js-cookie';
-import jwt from 'jsonwebtoken';
 import { useEffect, useState } from 'react';
 import { Loading } from '@/components/shared/loading';
+import { checkLoggedIn } from '@/utils';
 
 
 export default function Home() {
-  const TOKEN_KEY = 'trial123'
   const [user, setUser] = useState<boolean>()
   const [loading, setLoading] = useState<boolean>(false)
   const [user_data, setUser_data] = useState<any>()
+
   useEffect(() => {
-    const token = Cookies.get(TOKEN_KEY)
-    if(token) {
-       setUser(true)
-       const data = jwt.verify(token, TOKEN_KEY)
-       setUser_data(data)
+    const { isLoggedIn, user_data } = checkLoggedIn();
+
+    if (isLoggedIn) {
+      setUser(true)
+      setUser_data(user_data);
     } else {
+      // User is not logged in, you can redirect to the login page
       setUser(false)
       setLoading(true)
     }
-  }, [])
+  }, []);
+
   return (
     <>
       {

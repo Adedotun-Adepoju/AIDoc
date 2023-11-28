@@ -12,6 +12,8 @@ import jwt from 'jsonwebtoken';
 import { useRouter } from "next/navigation"
 import { Loading } from "@/components/shared/loading"
 import { StyledLogin } from "@/styles/StyledLogin"
+import Header from "@/components/header"
+import { BEARER_KEY, TOKEN_KEY } from "@/utils"
 
 const Login = () => {
     const [name, setName] = useState('')
@@ -20,7 +22,6 @@ const Login = () => {
     const [loadingPage, setpage] = useState<boolean>(false)
     const [loadingApi, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>()
-    const TOKEN_KEY = 'trial123'
     const router = useRouter()
     const showPass = () => {
         if (passwordRef.current?.type === "password") {
@@ -35,10 +36,10 @@ const Login = () => {
         .then((response) => {
             const token = jwt.sign(response.data.status_code.user, TOKEN_KEY)
             Cookies.set(TOKEN_KEY, token);
+            Cookies.set(BEARER_KEY, response.data.status_code.access_token)
             router.push('/')            
         })
         .catch((error) =>{
-            console.log(error)
             setLoading(false)
             setError('check your email and password')
         })
@@ -46,7 +47,7 @@ const Login = () => {
     useEffect(() => {
         setpage(true)        
     }, [])
-    return ( <StyledLogin>
+    return ( <><Header /><StyledLogin>
         { loadingPage ?
         <section className="flex__row login">
             <div className="content-div">
@@ -80,7 +81,7 @@ const Login = () => {
             </div>
         </section> : <Loading />
         }
-        </StyledLogin>
+        </StyledLogin></>
     )
 }
 export default Login

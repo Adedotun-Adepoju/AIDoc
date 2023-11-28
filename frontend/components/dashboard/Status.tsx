@@ -16,7 +16,7 @@ const Status = ({
           <p className="mb-3 font-semibold text-black">
             Weight (KG)
           </p>
-          <span className='flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueLight'>
+          <span className='flex items-center justify-between text-5xl uppercase font-extrabold sm:text-6xl text-blueLight'>
             {userData.patient.weight}
             <WeightIcon className='h-8 '/>
           </span>
@@ -25,7 +25,7 @@ const Status = ({
           <p className="mb-3 font-semibold text-black">
             Genotype
           </p>
-          <span className='flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueDark-200'>
+          <span className='flex items-center justify-between text-5xl uppercase font-extrabold sm:text-6xl text-blueDark-200'>
           {userData.patient.genotype}
             <DnaIcon className='h-12'/>
           </span>
@@ -34,7 +34,7 @@ const Status = ({
           <p className="mb-3 font-semibold text-black capitalize">
             Blood group
           </p>
-          <span className='flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-red'>
+          <span className='flex items-center justify-between uppercase text-5xl font-extrabold sm:text-6xl text-red'>
           {userData.patient.blood_group}
             <BloodIcon className='h-12'/>
           </span>
@@ -45,7 +45,7 @@ const Status = ({
               Last Chat with AI-DOC
             </p>
             <span className='flex items-center justify-between text-lg font-bold text-white sm:text-3xl lg:text-xl xl:text-3xl'>
-              4days ago
+            <span className="text-grayLight text-5xl">--</span>
             </span>
           </div>
         </div>

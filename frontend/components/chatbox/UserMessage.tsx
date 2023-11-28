@@ -5,19 +5,15 @@ import profileImg from "@/public/images/profile.png";
 interface UserMessageProps {
   content: string;
   speed?: number;
+  user_name: string;
 }
 
-const user = {
-  name: 'John Doe',
-  avatar: 'https://i.pravatar.cc/150?img=68',
-};
-
-const UserMessage: React.FC<UserMessageProps> = ({ content }) => {
+const UserMessage: React.FC<UserMessageProps> = ({ content, user_name }) => {
   return (
     <div className={cx('flex items-center w-full py-2')}>
-      <div><Image src={profileImg} alt={user.name} width={42} height={42} className={cx('rounded-full mr-2')} /></div>
+      <div><Image src={profileImg} priority alt={user_name} width={42} height={42} className={cx('rounded-full mr-2')} /></div>
       <div className='text-black p-3 rounded-lg flex flex-col'>
-        <span className='text-blueLight text-base font-semibold'>{user.name}</span>
+        <span className='text-blueLight text-base font-semibold'>{user_name}</span>
         <span className="text-black text-base leading-tight font-medium">
         {content}
         </span>

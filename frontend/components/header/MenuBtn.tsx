@@ -11,13 +11,17 @@ import {
 } from "../icons";
 import { useState } from "react";
 import Link from "next/link";
-import { cx } from "@/utils";
+import { TOKEN_KEY, cx } from "@/utils";
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
-const MenuBtn = () => {
+const MenuBtn = ({user_name}: {user_name: string}) => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
+  const router = useRouter();
 
-  const logOut = () => {
-    return;
+  const logout = () => {
+    Cookies.remove(TOKEN_KEY);
+    router.push('/login');
   };
 
   return (
@@ -33,7 +37,7 @@ const MenuBtn = () => {
           alt="profile"
           className="w-8 h-8 border rounded-full border-blueDark-200"
         />
-        <span className="font-semibold uppercase">christian</span>
+        <span className="font-semibold uppercase">{user_name}</span>
         {toggleDropdown ? (
           <ChevronDownIcon className="w-3 h-3 transform rotate-180" />
         ) : (
@@ -88,7 +92,7 @@ const MenuBtn = () => {
             <button
               onClick={() => {
                 setToggleDropdown(false);
-                logOut();
+                logout();
               }}
               type="button"
               className="flex items-center w-full gap-2 px-4 py-2 border-b border-grayLight"

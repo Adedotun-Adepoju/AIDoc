@@ -34,15 +34,15 @@ const LandingMenuBtn = () => {
         id="landingMenuContainer"
       >
         <div className="py-32 px-8 max-w-[287px] mx-auto text-base gap-4 h-full flex flex-col w-full items-center text-blueDark-200 capitalize font-semibold">
-          {/* <Link href="/about" classNames=" w-full sm:px-5 md:py-1.5">
+          <Link href="/about" className=" text-center  w-full sm:px-5 md:py-1.5">
             About us
           </Link>
-          <Link href="/contact" classNames="w-full sm:px-5 md:py-1.5">
+          <Link href="/contact" className=" text-center w-full sm:px-5 md:py-1.5">
             Contact us
           </Link>
-          <Link href="/login" classNames="w-full sm:px-5 md:py-1.5">
+          <Link href="/login" className=" text-center w-full sm:px-5 md:py-1.5">
             LOGIN
-          </Link> */}
+          </Link>
           <Button
             title="SIGN UP"
             href="/signup"

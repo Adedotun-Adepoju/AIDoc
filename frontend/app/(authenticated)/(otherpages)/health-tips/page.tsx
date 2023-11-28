@@ -1,12 +1,13 @@
+"use client"
 import BackBtn from "@/components/elements/BackBtn";
 import ChatWithDocBotBtn from "@/components/elements/ChatWithDocBotBtn";
 import ConnectDocBtn from "@/components/elements/ConnectDocBtn";
-import { BackIcon, BloodIcon, DnaIcon, WeightIcon } from "@/components/icons";
+import { BloodIcon, DnaIcon, WeightIcon } from "@/components/icons";
 import { healthTips } from "@/utils";
 import Image from "next/image";
-import React from "react";
 
-const page = () => {
+const HealthTipsPage = () => {
+
   return (
     <main className="px-5 py-16 mx-auto max-w-7xl md:px-10 relative">
       <BackBtn />
@@ -70,7 +71,7 @@ const page = () => {
                   Last Chat with AI-DOC
                 </p>
                 <span className="flex items-center justify-between text-lg font-bold text-white sm:text-3xl lg:text-xl xl:text-3xl">
-                  4days ago
+                  <span className="text-grayLight">--</span>
                 </span>
               </div>
             </div>
@@ -86,4 +87,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default HealthTipsPage;

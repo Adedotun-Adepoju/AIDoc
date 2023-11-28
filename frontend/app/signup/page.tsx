@@ -9,6 +9,8 @@ import { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { Loading } from "@/components/shared/loading"
+import Header from "@/components/header"
+
 const Signup = () => {
     const [fName, setFname] = useState('')
     const [lName, setLname] = useState('')
@@ -27,7 +29,7 @@ const Signup = () => {
             router.push('/login')            
         })
         .catch((error) => {
-            console.log(error)
+            return
         })
     }
     const inputRef = useRef<HTMLInputElement>(null)
@@ -49,7 +51,7 @@ const Signup = () => {
     useEffect(() => {
         setpage(true)        
     }, [])
-    return ( <StyledLogin>
+    return ( <><Header /><StyledLogin>
         {loadingPage ? 
         <section className="flex__row login">
             <div className="content-div">
@@ -104,7 +106,7 @@ const Signup = () => {
             </div>
         </section> : <Loading />
         }
-        </StyledLogin>
+        </StyledLogin></>
     )
 }
 export default Signup

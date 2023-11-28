@@ -7,7 +7,38 @@ import handHygiene from '/public/images/hand-hygiene.png'
 import { parseISO, format } from "date-fns";
 import axios from 'axios'
 import { ChatMessage } from '@/app/(authenticated)/(chatbox)/chatbox/page'
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
 
+const backendToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYjJkZTkxMi00NjI3LTQ0ZjgtOTJiYS05ZDI1NjAxYmNjNTYiLCJ1c2VybmFtZSI6ImFkZWRvdHVuLmFkZXBvanVAYjU0LmNvIiwiaWF0IjoxNzAxMTg0NTI2LCJleHAiOjE3MDE0NDM3MjZ9.Y5X-EAowAzn67x16EwgK7gz6b9nANGSEpdNeETtjH6Q"
+export const openAiApiKey = assertValue(
+  process.env.NEXT_PUBLIC_OPEN_AI_KEY,
+  'Missing environment variable: NEXT_PUBLIC_OPEN_AI_KEY',
+)
+export const TOKEN_KEY = assertValue(
+  process.env.NEXT_PUBLIC_TOKEN_KEY,
+  'Missing environment variable: NEXT_PUBLIC_TOKEN_KEY',
+  
+  )
+  export const OPEN_AI_URL = assertValue(
+    process.env.NEXT_PUBLIC_OPEN_AI_URL,
+    'Missing environment variable: NEXT_PUBLIC_OPEN_AI_URL',
+  )
+  export const BACKEND_TOKEN = assertValue(
+    process.env.NEXT_PUBLIC_BACKEND_TOKEN,
+    'Missing environment variable: NEXT_PUBLIC_BACKEND_TOKEN',
+  )
+  export const BEARER_KEY = assertValue(
+    process.env.NEXT_PUBLIC_BEARER_KEY,
+    'Missing environment variable: NEXT_PUBLIC_BACKEND_TOKEN',
+  )
+
+function assertValue<T>(v: T | undefined, errorMessage: string): T {
+  if (v === undefined) {
+    throw new Error(errorMessage)
+  }
+  return v
+}
 
 
 export const cx = (...classNames: (string | undefined)[]) => {
@@ -100,9 +131,6 @@ export const savePrompt = async ({ token, body }: savePromptType): Promise<any> 
   }
 };
 
-const openAiUrl = "https://api.openai.com/v1/chat/completions"
-const openAiApiKey = "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"
-
 
 export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
   let data = JSON.stringify({
@@ -113,7 +141,7 @@ export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
   });
   
   try {
-    const axiosResponse = await axios.post(openAiUrl, data, {
+    const axiosResponse = await axios.post(OPEN_AI_URL, data, {
       headers: { 
         Authorization: `Bearer ${openAiApiKey}`, 
         'Content-Type': 'application/json'
@@ -121,7 +149,7 @@ export const queryGPT = async (messages: ChatMessage[]): Promise<any> => {
     });
     return axiosResponse.data;
   } catch (error) {
-    console.log(error);
+    return
   }
 };
 
@@ -138,10 +166,59 @@ export const getConversations = async ({user_id, token}: getConversationsType): 
         'Content-Type': 'application/json',
       },
     });
-    console.log(axiosResponse);
     return axiosResponse.data;
   } catch (error) {
-    console.error(error);
-    throw error; // Re-throw the error to propagate it to the caller
+    console.error(`Error getting conversations(getConversations): ${error}`);
+    // throw error; // Re-throw the error to propagate it to the caller
   }
 };
+
+
+export type getPrompts = {
+  conversation_id: string;
+  token: string;
+};
+export const getPrompts = async ({conversation_id}: getPrompts): Promise<any> => {
+  try {
+    const axiosResponse = await axios.get(`/api/chat/prompts/${conversation_id}`, {
+      headers: {
+        Authorization: BACKEND_TOKEN,
+        'Content-Type': 'application/json',
+      },
+    });
+    return axiosResponse.data;
+  } catch (error) {
+    console.error(`Error getting prompts of conversation(getPrompts): ${error}`);
+    // throw error; // Re-throw the error to propagate it to the caller
+  }
+};
+
+export const checkLoggedIn = (): { isLoggedIn: boolean; user_data?: any; bearerToken?: string } => {
+  const jtw = Cookies.get(TOKEN_KEY);
+
+  if (jtw) {
+    try {
+      const data = jwt.verify(jtw, TOKEN_KEY);
+      return { isLoggedIn: true, user_data: data, bearerToken: jtw };
+    } catch (error) {
+      console.error('Error verifying token:', error);
+      return { isLoggedIn: false };
+    }
+  } else {
+    return { isLoggedIn: false };
+  }
+};
+
+export const bearerToken = (): string | undefined => {
+  const jtw = Cookies.get(BEARER_KEY);
+
+  if (jtw) {
+    try {
+      return jtw;
+    } catch (error) {
+      console.error('Bearer Token does not exist:', error);
+    }
+  } else {
+    return undefined;
+  }
+}

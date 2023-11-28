@@ -1,14 +1,6 @@
 "use client";
-import {
-  FacebookIcon,
-  InstagramIcon,
-  MailIcon,
-  TripleArrowIcon,
-  TwitterIcon,
-} from "@/components/icons";
+
 import { useForm } from "react-hook-form";
-import AiBotImage from "@/public/img/ai-bot.png";
-import Image from "next/image";
 import How from "@/components/How";
 import Why from "@/components/Why";
 import { Loading } from "@/components/shared/loading";
@@ -27,8 +19,8 @@ const AboutPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>();
-  const onSubmit = (data: FormInput) => console.log(data);
-  console.log(errors);
+  const onSubmit = (data: FormInput) => {return data}
+
   const [loadingPage, setpage] = useState<boolean>(false)
   useEffect(() => {
     setpage(true)        

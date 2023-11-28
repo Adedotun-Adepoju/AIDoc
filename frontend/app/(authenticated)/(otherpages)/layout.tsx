@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 
 export default function AuthenticatedLayout({
@@ -9,6 +10,7 @@ export default function AuthenticatedLayout({
     <>
       <Header />
       {children}
+      <Footer />
     </>
   );
 }
