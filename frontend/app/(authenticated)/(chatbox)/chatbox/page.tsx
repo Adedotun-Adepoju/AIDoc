@@ -5,9 +5,12 @@ import ChatHistory from "@/components/chatbox/ChatHistory";
 import SideBar from "@/components/chatbox/SideBar";
 import UserMessage from "@/components/chatbox/UserMessage";
 import { AiDocLogo, SendIcon, TypingLoadingIcon } from "@/components/icons";
-import React, { useState } from "react";
-import { cx, queryGPT, saveConvo, savePrompt } from "@/utils";
+import React, { useEffect, useState } from "react";
+import { TOKEN_KEY, cx, queryGPT, saveConvo, savePrompt } from "@/utils";
 import { Twirl as Hamburger } from "hamburger-react";
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
+import { useRouter } from "next/navigation"
 
 export interface ChatMessage {
   role: string;
@@ -18,6 +21,7 @@ interface ConversationState {
   id: string;
   title: string;
   created_at: string;
+  user_id: string;
   chatMessages: ChatMessage[];
 }
 
@@ -28,6 +32,7 @@ const initialConvoState = {
   id: "",
   title: "",
   created_at: "",
+  user_id: "",
   chatMessages: [
     {
       role: "system",
@@ -36,7 +41,7 @@ const initialConvoState = {
   ],
 };
 
-const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2NC0yOTFiLTRmMzktYmJmMi0yNzgzNDZmYjM3YTgiLCJ1c2VybmFtZSI6ImQuZS5hZGVwb2p1QGdtYWlsLmNvbSIsImlhdCI6MTcwMDkzMDIyMywiZXhwIjoxNzAxMTg5NDIzfQ.nrJsCxnzZ95x_9xpn0ILMWxG9S03yDQFHjSfEuyW2eM`;
+//const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYmU4ODQ2NC0yOTFiLTRmMzktYmJmMi0yNzgzNDZmYjM3YTgiLCJ1c2VybmFtZSI6ImQuZS5hZGVwb2p1QGdtYWlsLmNvbSIsImlhdCI6MTcwMDkzMDIyMywiZXhwIjoxNzAxMTg5NDIzfQ.nrJsCxnzZ95x_9xpn0ILMWxG9S03yDQFHjSfEuyW2eM`;
 
 const ChatBoxPage = () => {
   const [userInput, setUserInput] = useState("");
@@ -44,18 +49,32 @@ const ChatBoxPage = () => {
   const [toggled, setToggled] = useState(false);
   const [conversation, setConversation] =
     useState<ConversationState>(initialConvoState);
-  const [user, setUser] = useState({
-    name: "Christian",
-    id: "1be88464-291b-4f39-bbf2-278346fb37a8",
-  });
+  const [user_data, setUser_data] = useState<any>()
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [token, setToken] = useState<string>('')
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const jtw = Cookies.get(TOKEN_KEY)
+    if(jtw) {
+      setIsLoggedIn(true)
+       const data = jwt.verify(jtw, TOKEN_KEY)
+       setUser_data(data)
+       setToken(jtw)
+    } else {
+      setIsLoggedIn(false)
+      router.push('/login')
+    }
+  }, [])
+
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
-// 
+ 
   const chatAiDoc = async () => {
     try {
-      console.log(conversation.chatMessages);
       const response = await queryGPT(conversation.id !== '' ? conversation.chatMessages : initialConvoStatement);
       if (response.choices) {
         const aiDocMessage = response.choices[0].message.content;
@@ -86,7 +105,6 @@ const ChatBoxPage = () => {
             role: "assistant",
           },
         });
-        console.log(saveAiResponse);
       }
     } catch (error) {
       console.error("Error starting conversation:", error);
@@ -98,16 +116,18 @@ const ChatBoxPage = () => {
       chatAiDoc();
       const response = await saveConvo({
         token,
-        body: { title: userInput, user_id: user.id },
+        body: { title: userInput, user_id: user_data?.id },
       });
-      console.log("startConversation", response.data.id);
       setConversation((prevConversation) => (
       {
         ...prevConversation,
         id: response.data.id,
         title: response.data.title,
         created_at: response.data.created_at,
+        user_id: response.data.user_id,
       }));
+      console.log(`Starting prompt for startConversation ${conversation}...`);
+      console.log(`Response from saving convo: ${response.data}...`);
     } catch (error) {
       console.error("Error starting conversation:", error);
     }
@@ -115,6 +135,7 @@ const ChatBoxPage = () => {
   const startPrompt = async () => {
     try {
       chatAiDoc();
+      console.log(`Starting prompt for conversation ${conversation}...`);
       savePrompt({
         token,
         body: {
@@ -178,7 +199,7 @@ const ChatBoxPage = () => {
           id="chatHistoryContainer"
           className="w-10/12 md:w-1/3 xl:1/4  bg-blueDark-200 h-screen overflow-y-auto max-w-[350px] transform transition-transform duration-300 ease-in-out  md:static absolute top-0 right-full sm:w-full sm:h-full sm:z-50"
         >
-          <ChatHistory currentConvoId={conversation.id} />
+          { user_data?.id && token && <ChatHistory currentConvoId={conversation.id} user_id={user_data.id} token={token} />}
         </div>
 
         <div className="flex-1  bg-slate-100 h-screen flex flex-col">
@@ -189,13 +210,13 @@ const ChatBoxPage = () => {
           {/* Chat messages */}
           <div className="px-5 flex-1 overflow-y-auto border_b_except_last_child">
             <AiDocMessage
-              content={`Hello ${user.name}, what symptoms are you having today?`}
+              content={`Hello ${user_data?.first_name}, what symptoms are you having today?`}
             />
             {conversation.chatMessages.slice(1).map((message, index) => {
               return message.role === "assistant" ? (
                 <AiDocMessage key={index} content={message.content} />
               ) : (
-                <UserMessage key={index} content={message.content} />
+                <UserMessage key={index} content={message.content} user_name={user_data?.first_name} />
               );
             })}
             {
@@ -232,7 +253,7 @@ const ChatBoxPage = () => {
         </div>
 
         <div className="w-1/4 bg-white h-screen overflow-y-auto xl:block hidden">
-          <SideBar />
+          <SideBar user_name={user_data?.first_name} />
         </div>
       </section>
     </main>
