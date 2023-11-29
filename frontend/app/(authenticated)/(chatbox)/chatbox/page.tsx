@@ -211,7 +211,7 @@ const ChatBoxPage = () => {
   };
 
   return (
-    <main className="flex bg-slate-200">
+    <main className="flex h-screen bg-slate-200">
       <section className="flex gap-2 heightd w-full relative !overflow-x-hidden">
         <span className="fixed z-30 text-white top-2 right-4 md:hidden">
           <Hamburger toggled={toggled} toggle={handleToggle} size={28} />
