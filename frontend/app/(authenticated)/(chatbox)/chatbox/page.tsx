@@ -56,7 +56,6 @@ const ChatBoxPage = () => {
   const [token, setToken] = useState<string>("");
   const ref = useRef<HTMLDivElement>(null);
   const [divHeight, setDivHeight] = useState(0);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -211,13 +210,13 @@ const ChatBoxPage = () => {
   };
 
   return (
-    <main className="flex h-screen bg-slate-200">
+    <main className="flex heightd bg-slate-200">
       <section className="flex gap-2 heightd w-full relative !overflow-x-hidden">
         <span className="fixed z-30 text-white top-2 right-4 md:hidden">
           <Hamburger toggled={toggled} toggle={handleToggle} size={28} />
         </span>
         <div id="chatHistoryContainer"
-          className="w-10/12 md:w-1/3 xl:1/4  bg-blueDark-200 h-screen overflow-y-auto max-w-[350px] transform transition-transform duration-300 ease-in-out  md:static absolute top-0 right-full sm:w-full sm:h-full sm:z-50"
+          className="w-10/12 md:w-1/3 xl:1/4  bg-blueDark-200 heightd overflow-y-auto max-w-[350px] transform transition-transform duration-300 ease-in-out  md:static absolute top-0 right-full sm:w-full sm:h-full sm:z-50"
         >
           {user_data?.id && token && (
             <ChatHistory
@@ -228,7 +227,7 @@ const ChatBoxPage = () => {
           )}
         </div>
 
-        <div className="flex flex-col flex-1 bg-slate-100 ">
+        <div className="flex flex-col flex-1 bg-slate-100 heightd">
           <h2 className="px-5 py-4 text-xl font-semibold text-white bg-blueDark-200 sm:px-10">
             Chat with AI-DOC
           </h2>
@@ -301,7 +300,7 @@ const ChatBoxPage = () => {
           </div>
         </div>
 
-        <div className="hidden w-1/4 h-screen overflow-y-auto bg-white xl:block">
+        <div className="hidden w-1/4 heightd overflow-y-auto bg-white xl:block">
           <SideBar user_name={user_data?.first_name} />
         </div>
       </section>
