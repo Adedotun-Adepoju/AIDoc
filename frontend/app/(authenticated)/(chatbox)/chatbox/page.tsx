@@ -210,7 +210,7 @@ const ChatBoxPage = () => {
   };
 
   return (
-    <main className="flex heightd bg-slate-200">
+    <main className="flex heightd bg-slate-200 fixed w-full top-0 bottom-0">
       <section className="flex gap-2 heightd w-full relative !overflow-x-hidden">
         <span className="fixed z-30 text-white top-2 right-4 md:hidden">
           <Hamburger toggled={toggled} toggle={handleToggle} size={28} />
@@ -259,7 +259,7 @@ const ChatBoxPage = () => {
                 <div className="py-3 ">
                   <AiDocLogo
                     className={cx(
-                      "w-12 h-12 mr-2 rounded-full border border-blueDark-200"
+                      "w-8 h-8 mr-2 rounded-full border border-blueDark-200"
                     )}
                   />
                 </div>

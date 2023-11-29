@@ -11,13 +11,13 @@ interface UserMessageProps {
 const UserMessage: React.FC<UserMessageProps> = ({ content, user_name }) => {
   return (
     <div className={cx("flex items-center w-full py-2")}>
-      <div className="h-12 basis-12">
+      <div className="h-8 min-w-[32px] basis-8 ">
         <Image
           src={profileImg}
           priority
           alt={user_name}
-          width={48}
-          height={48}
+          width={32}
+          height={32}
           className={cx(
             "object-cover mr-2 rounded-full border border-blueDark-200"
           )}

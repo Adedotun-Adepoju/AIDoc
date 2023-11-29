@@ -62,7 +62,7 @@ const AiDocMessage: React.FC<AiDocMessageProps> = ({
       <div className="py-3 ">
         <AiDocLogo
           className={cx(
-            "w-12 h-12 mr-2 rounded-full border border-blueDark-200"
+            "w-8 h-8 mr-2 rounded-full border border-blueDark-200"
           )}
         />
       </div>
