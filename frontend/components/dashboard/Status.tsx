@@ -17,7 +17,11 @@ const Status = ({
             Weight (KG)
           </p>
           <span className='flex items-center justify-between text-5xl uppercase font-extrabold sm:text-6xl text-blueLight'>
-            {userData.patient.weight}
+          {userData?.patient?.weight ? (
+                    userData?.patient?.weight
+                  ) : (
+                    <span className="text-grayLight">--</span>
+                  )}
             <WeightIcon className='h-8 '/>
           </span>
         </div>
@@ -26,7 +30,11 @@ const Status = ({
             Genotype
           </p>
           <span className='flex items-center justify-between text-5xl uppercase font-extrabold sm:text-6xl text-blueDark-200'>
-          {userData.patient.genotype}
+          {userData?.patient?.genotype ? (
+                    userData?.patient?.genotype
+                  ) : (
+                    <span className="text-grayLight">--</span>
+                  )}
             <DnaIcon className='h-12'/>
           </span>
         </div>
@@ -35,7 +43,11 @@ const Status = ({
             Blood group
           </p>
           <span className='flex items-center justify-between uppercase text-5xl font-extrabold sm:text-6xl text-red'>
-          {userData.patient.blood_group}
+          {userData?.patient?.blood_group ? (
+                    userData?.patient?.blood_group
+                  ) : (
+                    <span className="text-grayLight">--</span>
+                  )}
             <BloodIcon className='h-12'/>
           </span>
         </div>

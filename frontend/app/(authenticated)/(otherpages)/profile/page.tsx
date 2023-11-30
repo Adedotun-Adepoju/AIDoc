@@ -95,8 +95,8 @@ const ProfilePage = () => {
               <div className="col-span-1 p-4 bg-white rounded-lg">
                 <p className="mb-3 font-semibold text-black">Weight (KG)</p>
                 <span className="flex items-center justify-between text-5xl font-extrabold uppercase sm:text-6xl text-blueLight">
-                  {user_data?.patient.weight ? (
-                    user_data?.patient.weight
+                  {user_data?.patient?.weight ? (
+                    user_data?.patient?.weight
                   ) : (
                     <span className="text-grayLight">--</span>
                   )}
@@ -106,8 +106,8 @@ const ProfilePage = () => {
               <div className="col-span-1 p-4 bg-white rounded-lg">
                 <p className="mb-3 font-semibold text-black">Genotype</p>
                 <span className="flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueDark-200">
-                  {user_data?.patient.genotype ? (
-                    user_data?.patient.genotype
+                  {user_data?.patient?.genotype ? (
+                    user_data?.patient?.genotype
                   ) : (
                     <span className="text-grayLight">--</span>
                   )}
@@ -119,8 +119,8 @@ const ProfilePage = () => {
                   Blood group
                 </p>
                 <span className="flex items-center justify-between text-5xl uppercase font-extrabold sm:text-6xl text-red">
-                  {user_data?.patient.blood_group ? (
-                    user_data?.patient.blood_group
+                  {user_data?.patient?.blood_group ? (
+                    user_data?.patient?.blood_group
                   ) : (
                     <span className="text-grayLight">--</span>
                   )}
