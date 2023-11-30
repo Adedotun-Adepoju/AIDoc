@@ -54,7 +54,7 @@ export default function RootLayout({
       <body
         className={cx(
           quicksand.variable,
-          "font-quicksand min-h-screen overflow-x-hidden"
+          "font-quicksand heightd relative overflow-x-hidden"
         )}
       >
         {children}
