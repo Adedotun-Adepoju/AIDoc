@@ -20,10 +20,6 @@ const ConversationUI = ({conversation, user_data }: {conversation: ConversationS
     }
   }, [conversation.chatMessages.length, divHeight]);
 
-  // useEffect(() => {
-  //   console.log(conversation);
-  //   console.log(conversation.chatMessages);
-  // }, [conversation.id]);
   return (
     <div className="flex-1 px-5 overflow-y-auto border_b_except_last_child">
             <AiDocMessage
