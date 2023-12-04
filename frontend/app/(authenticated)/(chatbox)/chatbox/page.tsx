@@ -263,7 +263,7 @@ const ChatBoxPage = () => {
               );
             })}
             {conversation.chatMessages[conversation.chatMessages.length - 1]
-              .role === "user" ? (
+              .role === "user" && conversation.typing ? (
               <div className={cx("flex items-start w-full py-2")}>
                 <div className="py-3 ">
                   <AiDocLogo
