@@ -13,6 +13,7 @@ import {
   queryGPT,
   saveConvo,
   savePrompt,
+  systemPrompt,
 } from "@/utils";
 import { Twirl as Hamburger } from "hamburger-react";
 import { useRouter } from "next/navigation";
@@ -28,10 +29,9 @@ interface ConversationState {
   created_at: string;
   user_id: string;
   chatMessages: ChatMessage[];
+  typing?: boolean;
 }
 
-const systemPrompt =
-  "As an AI doctor, your task is to analyze symptoms provided by a user and inquire further to gain a deeper understanding. Ask precisely three follow-up questions, one at a time, to gather additional information without overwhelming the user. Once the diagnosis is made, inquire whether the user prefers suggested treatments or if they would like guidance on visiting the nearest hospital for further assistance.";
 const initialConvoStatement = [{ role: "system", content: systemPrompt }];
 const initialConvoState = {
   id: "",
@@ -44,6 +44,7 @@ const initialConvoState = {
       content: systemPrompt,
     },
   ],
+  typing: true,
 };
 
 const ChatBoxPage = () => {
@@ -81,11 +82,15 @@ const ChatBoxPage = () => {
     }
   }, [conversation.chatMessages.length, divHeight]);
 
+  useEffect(() => {
+    setConversation(initialConvoState)
+  }, []);
+
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
 
-  const chatAiDoc = async () => {
+  const chatAiDoc = async (conversation_id: string='') => {
     try {
       const response = await queryGPT(
         conversation.id !== ""
@@ -113,16 +118,17 @@ const ChatBoxPage = () => {
             chatMessages: updatedChatMessages,
           };
         });
-        if (conversation.id) {
-          savePrompt({
-            token,
-            body: {
-              content: aiDocMessage,
-              conversation_id: conversation.id,
-              role: "assistant",
-            },
-          });
-        }
+
+      if (conversation.id || conversation_id ) {
+        savePrompt({
+          token,
+          body: {
+            content: aiDocMessage,
+            conversation_id: conversation.id || conversation_id,
+            role: "assistant",
+          },
+        });
+      }
       }
     } catch (error) {
       console.error("Error starting conversation:", error);
@@ -134,7 +140,6 @@ const ChatBoxPage = () => {
       if (conversation.chatMessages.length === 1) {
         conversation.chatMessages.push({ role: "user", content: userInput });
       }
-      chatAiDoc();
       const response = await saveConvo({
         token,
         body: { title: userInput, user_id: user_data?.id },
@@ -146,6 +151,7 @@ const ChatBoxPage = () => {
         created_at: response.data.created_at,
         user_id: response.data.user_id,
       }));
+      chatAiDoc(response.data.id);
     } catch (error) {
       console.error("Error starting conversation:", error);
     }
@@ -187,6 +193,7 @@ const ChatBoxPage = () => {
           return {
             ...prevConversation,
             chatMessages: updatedChatMessages,
+            typing: true,
           };
         }
         return prevConversation;
@@ -223,6 +230,7 @@ const ChatBoxPage = () => {
               currentConvoId={conversation.id}
               user_id={user_data.id}
               token={token}
+              setConversation={setConversation}
             />
           )}
         </div>
@@ -244,6 +252,7 @@ const ChatBoxPage = () => {
                   key={index}
                   content={message.content}
                   setDivHeight={setDivHeight}
+                  typing={conversation.typing}
                 />
               ) : (
                 <UserMessage
