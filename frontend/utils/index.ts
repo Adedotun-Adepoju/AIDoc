@@ -10,7 +10,9 @@ import { ChatMessage } from '@/app/(authenticated)/(chatbox)/chatbox/page'
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 
-const backendToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYjJkZTkxMi00NjI3LTQ0ZjgtOTJiYS05ZDI1NjAxYmNjNTYiLCJ1c2VybmFtZSI6ImFkZWRvdHVuLmFkZXBvanVAYjU0LmNvIiwiaWF0IjoxNzAxMTg0NTI2LCJleHAiOjE3MDE0NDM3MjZ9.Y5X-EAowAzn67x16EwgK7gz6b9nANGSEpdNeETtjH6Q"
+export const systemPrompt =
+  "As an AI doctor, your task is to analyze symptoms provided by a user and inquire further to gain a deeper understanding. Ask precisely three follow-up questions, one at a time, to gather additional information without overwhelming the user. Once the diagnosis is made, inquire whether the user prefers suggested treatments or if they would like guidance on visiting the nearest hospital for further assistance.";
+
 export const openAiApiKey = assertValue(
   process.env.NEXT_PUBLIC_OPEN_AI_KEY,
   'Missing environment variable: NEXT_PUBLIC_OPEN_AI_KEY',
@@ -178,11 +180,12 @@ export type getPrompts = {
   conversation_id: string;
   token: string;
 };
-export const getPrompts = async ({conversation_id}: getPrompts): Promise<any> => {
+
+export const getPrompts = async ({ conversation_id, token }: getPrompts): Promise<any> => {
   try {
     const axiosResponse = await axios.get(`/api/chat/prompts/${conversation_id}`, {
       headers: {
-        Authorization: BACKEND_TOKEN,
+        Authorization: token,
         'Content-Type': 'application/json',
       },
     });

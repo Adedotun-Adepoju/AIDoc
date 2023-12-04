@@ -9,7 +9,7 @@ import {
   ProfileIcon,
   SpecialistIcon,
 } from "../icons";
-import { TOKEN_KEY, formatDate, getConversations } from "@/utils";
+import { TOKEN_KEY, bearerToken, formatDate, getConversations, getPrompts, systemPrompt } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -18,6 +18,9 @@ interface ChatHistoryProps {
   currentConvoId: any;
   user_id: string;
   token: string;
+  setConversation: Function;
+  handleToggle: Function;
+  toggled: boolean;
 }
 
 export type ConversationHistoryType = {
@@ -29,7 +32,7 @@ export type ConversationHistoryType = {
   updated_at: string;
 };
 
-const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, token}) => {
+const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, token, setConversation, toggled, handleToggle}) => {
   const [history, setHistory] = useState<ConversationHistoryType[]>([]);
 
   useEffect(() => {
@@ -41,6 +44,29 @@ const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, toke
     };
     getHistory();
   }, [currentConvoId]);
+
+  const handleHistoryClick = async (conversation_id: string) => {
+    const data = await getPrompts({token, conversation_id});
+    const prompts = (data.data as { role: string; content: string; created_at: string }[])
+  .map(({ role, content, created_at }) => ({ role, content, created_at }))
+  .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+  .map(({ role, content }) => ({ role, content }));
+
+
+    const selectedConversation = history.find((conversation) => conversation.id === conversation_id);
+    const selectedConversationWithPrompts = {
+      id: selectedConversation?.id,
+      title: selectedConversation?.title,
+      created_at: selectedConversation?.created_at,
+      user_id: selectedConversation?.user_id,
+      chatMessages: [{
+        role: "system",
+        content: systemPrompt,
+      }, ...prompts],
+      typing: false,
+    }
+    setConversation(selectedConversationWithPrompts);
+  }
 
   const router = useRouter();
 
@@ -79,9 +105,9 @@ const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, toke
         <div>
           {history.length > 0 ? (
             history.slice(0, 7).map((query, index) => (
-              <div
+              <div onClick={() => {handleHistoryClick(query.id); if(toggled)handleToggle()}}
                 key={index}
-                className="flex items-start flex-col pr-5 justify-between bg-black/30 rounded-lg py-2 px-4 relative mb-2 max-h-[400px] overflow-hidden overflow-y-auto  hover:bg-black/20 transition-all duration-200 ease-in-out hover:scale-105"
+                className="flex items-start w-full flex-col pr-5 cursor-pointer justify-between bg-black/30 rounded-lg py-2 px-4 relative mb-2 max-h-[400px] overflow-hidden overflow-y-auto  hover:bg-black/20 transition-all duration-200 ease-in-out hover:scale-105"
               >
                 <p className="w-11/12 mb-1 overflow-hidden text-xs font-semibold text-white capitalize">
                   {query.title.length > 50 ? query.title.substring(0, 50) + "..." : query.title}
