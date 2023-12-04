@@ -122,7 +122,7 @@ const ChatBoxPage = () => {
 
   const startConversation = async () => {
     try {
-      console.log(`Starting conversation...userInput = ${userInput}`);
+      // console.log(`Starting conversation...userInput = ${userInput}`);
       if (conversation.chatMessages.length === 1) {
         conversation.chatMessages.push({ role: "user", content: userInput });
       }
