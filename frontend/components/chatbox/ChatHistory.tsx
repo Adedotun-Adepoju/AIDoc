@@ -19,6 +19,8 @@ interface ChatHistoryProps {
   user_id: string;
   token: string;
   setConversation: Function;
+  handleToggle: Function;
+  toggled: boolean;
 }
 
 export type ConversationHistoryType = {
@@ -30,7 +32,7 @@ export type ConversationHistoryType = {
   updated_at: string;
 };
 
-const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, token, setConversation}) => {
+const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, token, setConversation, toggled, handleToggle}) => {
   const [history, setHistory] = useState<ConversationHistoryType[]>([]);
 
   useEffect(() => {
@@ -103,7 +105,7 @@ const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, toke
         <div>
           {history.length > 0 ? (
             history.slice(0, 7).map((query, index) => (
-              <div onClick={() => handleHistoryClick(query.id)}
+              <div onClick={() => {handleHistoryClick(query.id); if(toggled)handleToggle()}}
                 key={index}
                 className="flex items-start w-full flex-col pr-5 cursor-pointer justify-between bg-black/30 rounded-lg py-2 px-4 relative mb-2 max-h-[400px] overflow-hidden overflow-y-auto  hover:bg-black/20 transition-all duration-200 ease-in-out hover:scale-105"
               >

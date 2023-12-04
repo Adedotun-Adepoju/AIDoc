@@ -231,6 +231,8 @@ const ChatBoxPage = () => {
               user_id={user_data.id}
               token={token}
               setConversation={setConversation}
+              toggled={toggled}
+              handleToggle={handleToggle}
             />
           )}
         </div>
