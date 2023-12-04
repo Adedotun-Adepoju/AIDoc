@@ -3,13 +3,14 @@
 import AiDocMessage from "@/components/chatbox/AiDocMessage";
 import ChatHistory from "@/components/chatbox/ChatHistory";
 import SideBar from "@/components/chatbox/SideBar";
-import UserMessage from "@/components/chatbox/UserMessage";
-import { AiDocLogo, SendIcon, TypingLoadingIcon } from "@/components/icons";
-import React, { useEffect, useRef, useState } from "react";
+import { SendIcon } from "@/components/icons";
+import React, { useEffect, useState } from "react";
 import {
   bearerToken,
   checkLoggedIn,
   cx,
+  initialConvoState,
+  initialConvoStatement,
   queryGPT,
   saveConvo,
   savePrompt,
@@ -33,15 +34,6 @@ export interface ConversationState {
   typing?: boolean;
 }
 
-const initialConvoStatement = [{ role: "system", content: systemPrompt }];
-export const initialConvoState = {
-  id: "",
-  title: "",
-  created_at: "",
-  user_id: "",
-  chatMessages: initialConvoStatement,
-  typing: true,
-};
 
 const ChatBoxPage = () => {
   const [userInput, setUserInput] = useState("");

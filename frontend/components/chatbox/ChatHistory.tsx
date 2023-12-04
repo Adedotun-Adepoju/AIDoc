@@ -9,11 +9,10 @@ import {
   ProfileIcon,
   SpecialistIcon,
 } from "../icons";
-import { TOKEN_KEY, bearerToken, formatDate, getConversations, getPrompts, systemPrompt } from "@/utils";
+import { TOKEN_KEY, bearerToken, formatDate, getConversations, getPrompts, initialConvoState, systemPrompt } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { initialConvoState } from "@/app/(authenticated)/(chatbox)/chatbox/page";
 
 interface ChatHistoryProps {
   currentConvoId: any;

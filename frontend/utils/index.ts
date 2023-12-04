@@ -13,6 +13,17 @@ import jwt from 'jsonwebtoken';
 export const systemPrompt =
   "As an AI doctor, your task is to analyze symptoms provided by a user and inquire further to gain a deeper understanding. Ask precisely three follow-up questions, one at a time, to gather additional information without overwhelming the user. Once the diagnosis is made, inquire whether the user prefers suggested treatments or if they would like guidance on visiting the nearest hospital for further assistance.";
 
+export const initialConvoStatement = [{ role: "system", content: systemPrompt }];
+
+export const initialConvoState = {
+  id: "",
+  title: "",
+  created_at: "",
+  user_id: "",
+  chatMessages: initialConvoStatement,
+  typing: true,
+};
+
 export const openAiApiKey = assertValue(
   process.env.NEXT_PUBLIC_OPEN_AI_KEY,
   'Missing environment variable: NEXT_PUBLIC_OPEN_AI_KEY',
