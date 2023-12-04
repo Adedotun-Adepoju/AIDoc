@@ -9,7 +9,7 @@ import {
   ProfileIcon,
   SpecialistIcon,
 } from "../icons";
-import { TOKEN_KEY, cx, formatDate, getConversations, getPrompts, initialConvoState, systemPrompt } from "@/utils";
+import { TOKEN_KEY, cx, formatDate, getConversations, getPrompts, systemPrompt } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -32,8 +32,19 @@ export type ConversationHistoryType = {
   updated_at: string;
 };
 
+
 const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, token, setConversation, toggled, handleToggle}) => {
   const [history, setHistory] = useState<ConversationHistoryType[]>([]);
+
+  const initialConvoStatement = [{ role: "system", content: systemPrompt }];
+  const initialConvoState = {
+    id: "",
+    title: "",
+    created_at: "",
+    user_id: "",
+    chatMessages: initialConvoStatement,
+    typing: true,
+  };
 
   useEffect(() => {
     const getHistory = async () => {
