@@ -18,17 +18,13 @@ import { BEARER_KEY, TOKEN_KEY } from "@/utils"
 const Login = () => {
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
-    const passwordRef = useRef<HTMLInputElement>(null)
+    const [passwordVisible, setVisible] = useState<boolean>(false)
     const [loadingPage, setpage] = useState<boolean>(false)
     const [loadingApi, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>()
     const router = useRouter()
     const showPass = () => {
-        if (passwordRef.current?.type === "password") {
-            passwordRef.current.type = "text";
-          } else if (passwordRef.current?.type === "text") {
-            passwordRef.current.type = "password"
-          }
+        setVisible(!passwordVisible)
     }
     const Login = (email: string, password: string) => {
         setLoading(true)
@@ -41,7 +37,7 @@ const Login = () => {
         })
         .catch((error) =>{
             setLoading(false)
-            setError('check your email and password')
+            setError(`${error.response.data.message} email or password`)
         })
     }
     useEffect(() => {
@@ -62,7 +58,7 @@ const Login = () => {
                 </div>
                 <div className="password-div flex__row">
                     <Icons type="lock" />
-                    <Input type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} value={password} refEl={passwordRef}/>
+                    <Input type={passwordVisible ? 'text' : 'password'} placeholder="Password" onChange={(event) => setPassword(event.target.value)} value={password}/>
                     <span onClick={() => showPass()}><Icons type="eyes" /> </span>
                 </div>
                 <p style={{color: 'red'}}>{error}</p>

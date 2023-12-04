@@ -10,43 +10,55 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { Loading } from "@/components/shared/loading"
 import Header from "@/components/header"
-
 const Signup = () => {
     const [fName, setFname] = useState('')
     const [lName, setLname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [password2, setPasssword2] = useState('')
     const [weight, setWeight] = useState('')
     const [bloodgroup, setBloodgroup] = useState('')
     const [genotype, setGenotype] = useState('')
     const [loadingPage, setpage] = useState<boolean>(false)
     const [loadingApi, setLoading] = useState<boolean>(false)
+    const [passwordError, setPasswordError] = useState('')
+    const [btnState, setBtn] = useState<boolean>(false)
     const router = useRouter()
     const SignUp = (first_name: string, last_name: string, email: string, password: string, weight: string, genotype: string, blood_group: string) => {
         setLoading(true)
+        if (passwordError === '') {
+        setBtn(false)
         axios.post('/api/auth/sign-up', {first_name, last_name, email, password, weight, genotype, blood_group})
         .then((response) => {
             router.push('/login')            
         })
         .catch((error) => {
-            return
+            setLoading(false)
+            setBtn(true)
+            setPasswordError(error.response.data.message)
         })
+        } else {
+            setPasswordError('Retype your password')
+            setLoading(false)
+            setBtn(true)
+        }
     }
-    const inputRef = useRef<HTMLInputElement>(null)
-    const passwordRef = useRef<HTMLInputElement>(null)
+    const [passwordVisible, setVisible] = useState<boolean>(false)
+    const [passwordVisible2, setVisible2] = useState<boolean>(false)
     const showPassword = () => {
-        if (inputRef.current?.type === "password") {
-            inputRef.current.type = "text";
-          } else if (inputRef.current?.type === "text") {
-            inputRef.current.type = "password"
-          }
+      setVisible(!passwordVisible)
     }
     const showPass = () => {
-        if (passwordRef.current?.type === "password") {
-            passwordRef.current.type = "text";
-          } else if (passwordRef.current?.type === "text") {
-            passwordRef.current.type = "password"
-          }
+        setVisible2(!passwordVisible2)
+    }
+    const checkPassword = (value: string) => {
+        if(password === value) {
+            setPasswordError('')
+            setBtn(false)
+        } else {
+            setPasswordError('Password does not match')
+            setBtn(true)
+        }
     }
     useEffect(() => {
         setpage(true)        
@@ -70,31 +82,53 @@ const Signup = () => {
                 </div>
                 <div className="name-div flex__row">
                     <Icons type="email" />
-                    <Input type="email" placeholder="Email" onChange={(event) => setEmail(event.target.value)} value={email}/>
+                    <Input type="email" placeholder="Email" onChange={(event) => (setEmail(event.target.value), passwordError !== '' ? (setBtn(false), setPasswordError('')): '')} value={email}/>
                 </div>
                 <div className="password-div flex__row">
                     <Icons type="lock" />
-                    <Input type="password" placeholder="Create Password" onChange={(event) => setPassword(event.target.value)} value={password} refEl={inputRef}/>
+                    <Input type={passwordVisible ? 'text' : 'password'} placeholder="Create Password" onChange={(event) => (setPassword(event.target.value))} value={password} />
                     <span onClick={() => showPassword()}><Icons type="eyes" /></span>
                 </div>
                 <div className="password-div flex__row">
                     <Icons type="lock" />
-                    <Input type="password" placeholder="Re-enter Password" refEl={passwordRef}/>
+                    <Input type={passwordVisible2 ? 'text' : 'password'} placeholder="Re-enter Password" value={password2} onChange={(event) => (setPasssword2(event.target.value), setTimeout(() => checkPassword(event.target.value), 2000))}/>
                     <span onClick={() => showPass()}><Icons type="eyes" /> </span>
                 </div>
                 <div className="password-div flex__row">
-                    <Icons type="genotype" />
-                    <Input type="text" placeholder="Genotype" onChange={(event) => setGenotype(event.target.value)} value={genotype} />
+                <Icons type="genotype" />
+                <select onChange={(event) => setGenotype(event.target.value)} value={genotype}>
+                <option value="" disabled selected>
+                        Select your genotype
+                        </option>
+                    <option value="AA">AA</option>
+                    <option value=" AS"> AS</option>
+                    <option value=" SS"> SS</option>
+                    <option value=" AC"> AC</option>
+                    <option value=" SC"> SC</option>
+                </select>
                 </div>
                 <div className="password-div flex__row">
-                    <Icons type="blood-group" />
-                    <Input type="text" placeholder="Blood Group" onChange={(event) => setBloodgroup(event.target.value)} value={bloodgroup} />
-                </div>
+                <Icons type="blood-group" />
+                  <select onChange={(event) => setBloodgroup(event.target.value)} value={bloodgroup}>
+                        <option value="" disabled selected>
+                        Select your blood group
+                        </option>
+                        <option value="A+">A+</option>
+                        <option value=" A-"> A-</option>
+                        <option value=" B+"> B+</option>
+                        <option value=" B-"> B-</option>
+                        <option value=" AB+"> AB+</option>
+                        <option value=" AB-"> AB-</option>
+                        <option value=" O+ "> O+ </option>
+                        <option value="O-">O-</option>
+                    </select>
+                 </div>
                 <div className="password-div flex__row">
                     <Icons type="weight" />
-                    <Input type="text" placeholder="weight" onChange={(event) => setWeight(event.target.value)} value={weight} />
+                    <Input type="number" placeholder="weight" onChange={(event) => setWeight(event.target.value)} value={weight} min={0}/>
                 </div>
-                <button onClick={(e) => (e.preventDefault(), SignUp(fName, lName, email, password, weight, genotype, bloodgroup))}>{loadingApi ? '...' :'SIGN UP'}</button>
+                <p style={{color: 'red'}}>{passwordError}</p>
+                <button style={{backgroundColor: btnState ? '#08426b34' : '#08426B'}} disabled={btnState} onClick={(e) => (e.preventDefault(), SignUp(fName, lName, email, password, weight, genotype, bloodgroup))}>{loadingApi ? '...' :'SIGN UP'}</button>
                 <Link href='/login'>
                      <p className="no-account">
                         Already have an account? <b>LOGIN</b>

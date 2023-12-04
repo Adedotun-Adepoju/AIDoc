@@ -4,7 +4,6 @@ export const StyledLogin = styled.section`
     .login {
         justify-content: space-around;
         align-items: center;
-        height: 100vh;
     }
     .content-div {
         display: flex;
@@ -43,6 +42,24 @@ export const StyledLogin = styled.section`
         font-weight: 500;
         color: var(--Gray-1, #333);
         height: 40px;
+        padding: 12px;
+        padding-left: 30px;
+        background-image: url('../../public/img/name.png');
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position-x: left;
+        margin-left: -25px;
+    }
+    select {
+        width: 280px;
+        background-color: #F9F9F9;
+        border: 0.7px solid rgba(8, 66, 107, 0.30);
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--Gray-1, #333);
+        height: 42px;
         padding: 12px;
         padding-left: 30px;
         background-image: url('../../public/img/name.png');
@@ -97,12 +114,16 @@ export const StyledLogin = styled.section`
             width: 85vw;
             height: 44px;
         }
+        select {
+            width: 85vw;
+            height: 44px;
+        }
         .bot-img {
             width: 169px;
             height: 209px;
         }
         .img-div {
-            margin-bottom: -100px;
+            margin-top: 120px;
             align-self: flex-end;
         }
         button {

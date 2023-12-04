@@ -3,16 +3,16 @@ const Input = ({
     placeholder,
     value,
     onChange,
-    refEl
+    min
 }:{
     type: string,
     placeholder: string,
     value?: string,
     onChange?: (event: any) => void,
-    refEl?: any
+    min?: any
 }) => {
     return (
-        <input type={type} placeholder={placeholder} onChange={onChange} value={value} ref={refEl}/>
+        <input type={type} placeholder={placeholder} onChange={onChange} value={value} min={min}/>
     )
 }
 export default Input
