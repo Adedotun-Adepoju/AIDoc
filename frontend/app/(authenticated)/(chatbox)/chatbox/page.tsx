@@ -84,9 +84,10 @@ const ChatBoxPage = () => {
 
   useEffect(() => {
     setConversation(initialConvoState)
-
+    router.refresh()
     return () => {
       setConversation(initialConvoState)
+      router.refresh()
     };
   }, []);
 
