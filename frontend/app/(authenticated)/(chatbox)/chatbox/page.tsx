@@ -84,6 +84,10 @@ const ChatBoxPage = () => {
 
   useEffect(() => {
     setConversation(initialConvoState)
+
+    return () => {
+      setConversation(initialConvoState)
+    };
   }, []);
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
