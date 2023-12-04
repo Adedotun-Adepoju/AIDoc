@@ -13,6 +13,7 @@ import { TOKEN_KEY, bearerToken, formatDate, getConversations, getPrompts, syste
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { initialConvoState } from "@/app/(authenticated)/(chatbox)/chatbox/page";
 
 interface ChatHistoryProps {
   currentConvoId: any;
@@ -99,9 +100,17 @@ const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, toke
         </Link>
       </aside>
       <div>
-        <h3 className="py-4 mb-6 font-semibold text-white border-b border-blueLight/50">
+        <div className="flex  text-white justify-between py-4 mb-6 items-center border-b border-blueLight/50">
+        <h3 className="font-semibold">
           History
         </h3>
+        <button
+          onClick={() => {setConversation(initialConvoState);  if(toggled)handleToggle()}}
+          className='px-2 py-1 text-xs font-semibold uppercase rounded-xl bg-blueLight/10 hover:bg-blueLight/20 transition-all duration-200 ease-in-out hover:scale-105'
+          type="button">
+            New
+          </button>
+        </div>
         <div>
           {history.length > 0 ? (
             history.slice(0, 7).map((query, index) => (
