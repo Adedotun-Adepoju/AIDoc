@@ -6,12 +6,14 @@ interface AiDocMessageProps {
   content: string;
   speed?: number;
   setDivHeight: Function;
+  typing?: boolean;
 }
 
 const AiDocMessage: React.FC<AiDocMessageProps> = ({
   content,
   speed = 20,
   setDivHeight,
+  typing,
 }) => {
   const [typedContent, setTypedContent] = useState<string>("");
 
@@ -74,7 +76,7 @@ const AiDocMessage: React.FC<AiDocMessageProps> = ({
             "whitespace-pre-wrap"
           )}
         >
-          {typedContent}
+          {typing ? typedContent : content}
         </span>
       </div>
     </div>
