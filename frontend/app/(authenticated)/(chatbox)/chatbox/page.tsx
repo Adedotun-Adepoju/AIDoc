@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 import {
   bearerToken,
   checkLoggedIn,
-  initialConvoState,
-  initialConvoStatement,
+  // initialConvoState,
+  // initialConvoStatement,
   queryGPT,
   saveConvo,
   savePrompt,
+  systemPrompt,
 } from "@/utils";
 import { Twirl as Hamburger } from "hamburger-react";
 import { useRouter } from "next/navigation";
@@ -33,6 +34,15 @@ export interface ConversationState {
 
 
 const ChatBoxPage = () => {
+    const initialConvoStatement = [{ role: "system", content: systemPrompt }];
+    const initialConvoState = {
+      id: "",
+      title: "",
+      created_at: "",
+      user_id: "",
+      chatMessages: initialConvoStatement,
+      typing: true,
+    };
   const [userInput, setUserInput] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [toggled, setToggled] = useState(false);
@@ -44,6 +54,7 @@ const ChatBoxPage = () => {
 
   useEffect(() => {
     const { isLoggedIn, user_data } = checkLoggedIn();
+    setConversation(initialConvoState);
 
     const bToken = bearerToken();
 
