@@ -18,6 +18,10 @@ const nextConfig = {
           destination: "https://aidoc.up.railway.app/chat/conversations/:slug",
         },
         {
+          source: "/api/chat/prompts/:conversation_id",
+          destination: "https://aidoc.up.railway.app/chat/prompts/:conversation_id",
+        },
+        {
           source: "/api/auth/login",
           destination: "https://aidoc.up.railway.app/auth/login",
         },
