@@ -24,24 +24,24 @@ const HealthTipsPage = () => {
   }, []);
 
   return (
-    <main className="px-5 py-16 mx-auto max-w-7xl md:px-10 relative">
+    <main className="relative px-5 py-16 mx-auto max-w-7xl md:px-10">
       <BackBtn />
-      <section className=" max-w-5xl gap-8 mx-auto mt-8">
+      <section className="max-w-5xl gap-8 mx-auto mt-8 ">
         <h2 className="col-span-12 mb-12 text-2xl font-semibold capitalize">
           Common Health tips
         </h2>
-        <div className="flex flex-col lg:flex-row w-full gap-4 overflow-x-hidden">
-          <div className="flex flex-1 flex-col justify-end gap-3 col-span-9 px-5 md:px-8 py-10 rounded-lg bg-blueDark-100 lg:max-w-3xl mx-auto">
+        <div className="flex flex-col w-full gap-4 overflow-x-hidden lg:flex-row">
+          <div className="flex flex-col justify-end flex-1 col-span-9 gap-3 px-5 py-10 mx-auto rounded-lg md:px-8 bg-blueDark-100 lg:max-w-3xl">
             {healthTips.map((tip, index) => (
               <div
                 key={index}
                 className="bg-white flex flex-col xs:grid gap-4 grid-cols-12 p-4 items-center justify-start border rounded-xl border-blueLight md:min-w-[500px]"
               >
-                <div className="h-full col-span-4 md:col-span-3 overflow-hidden rounded-xl w-full">
+                <div className="w-full h-full col-span-4 overflow-hidden md:col-span-3 rounded-xl">
                   <Image
                     src={tip.image}
                     alt={tip.title}
-                    className="object-cover object-center w-full h- transition-all duration-200 ease-in-out aspect-square hover:scale-105"
+                    className="object-cover object-center w-full transition-all duration-200 ease-in-out h- aspect-square hover:scale-105"
                   />
                 </div>
                 <div className="col-span-8 md:col-span-9">
@@ -55,8 +55,8 @@ const HealthTipsPage = () => {
           </div>
 
           {/* STATUS  */}
-          <div className="w-full lg:w-1/3 sticky top-0">
-            <div className="grid lg:grid-cols-1 grid-cols-2 gap-2 lg:gap-2 sm:gap-4 px-8 py-10 rounded-lg bg-blueDark-100">
+          <div className="sticky top-0 w-full lg:w-1/3">
+            <div className="grid grid-cols-2 gap-2 px-8 py-10 rounded-lg lg:grid-cols-1 lg:gap-2 sm:gap-4 bg-blueDark-100">
               <div className="col-span-1 p-4 bg-white rounded-lg">
                 <p className="mb-3 font-semibold text-black">Weight (KG)</p>
                 <span className="flex items-center justify-between text-5xl font-extrabold sm:text-6xl text-blueLight">
@@ -103,7 +103,7 @@ const HealthTipsPage = () => {
               </div>
             </div>
             </div>
-            <div className="flex lg:flex-col gap-4 mt-8 font-bold text-white">
+            <div className="flex gap-4 mt-8 font-bold text-white lg:flex-col">
               <ChatWithDocBotBtn classNames="sm:w-full w-full" />
               <ConnectDocBtn classNames="sm:w-full w-full py-4" />
             </div>
