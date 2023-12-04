@@ -105,7 +105,7 @@ const ChatHistory: React.FC<ChatHistoryProps>  = ({currentConvoId, user_id, toke
             history.slice(0, 7).map((query, index) => (
               <div onClick={() => handleHistoryClick(query.id)}
                 key={index}
-                className="flex items-start w-full flex-col pr-5 justify-between bg-black/30 rounded-lg py-2 px-4 relative mb-2 max-h-[400px] overflow-hidden overflow-y-auto  hover:bg-black/20 transition-all duration-200 ease-in-out hover:scale-105"
+                className="flex items-start w-full flex-col pr-5 cursor-pointer justify-between bg-black/30 rounded-lg py-2 px-4 relative mb-2 max-h-[400px] overflow-hidden overflow-y-auto  hover:bg-black/20 transition-all duration-200 ease-in-out hover:scale-105"
               >
                 <p className="w-11/12 mb-1 overflow-hidden text-xs font-semibold text-white capitalize">
                   {query.title.length > 50 ? query.title.substring(0, 50) + "..." : query.title}
