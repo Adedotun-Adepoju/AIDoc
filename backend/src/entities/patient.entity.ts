@@ -24,10 +24,9 @@ export class Patient {
   public contact_number: number 
 
   @Column({
-    type: 'int',
     nullable: true,
   })
-  public weight: number 
+  public weight: string 
 
   @Column({
     nullable: true,
